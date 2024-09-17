@@ -18,17 +18,20 @@ public class Flashcard
 
     private List<string> CorrectWords { get; set; }  // for storing correct words read from file
     private List<string> IncorrectWords { get; set; }  // for storing incorrect words read from file
-
+    
     // Constructor
     public Flashcard(string correctWordsFilePath, string incorrectWordsFilePath)
     {
         Id = Guid.NewGuid(); // assign ID to each card
+        
         // READ CORRECT AND INCORRECT WORDS MAYBE GOES HERE
+        CorrectWords = File.ReadAllLines(correctWordsFilePath).ToList();
+        IncorrectWords = File.ReadAllLines(incorrectWordsFilePath).ToList();
+        
 
         Words = GetRandomWords(CorrectWords); // get 5 random correct words into buffer
         MixedWords = MixInIncorrectWords(Words); // add incorrect words
     }
-
     
     private List<string> GetRandomWords(List<string> wordList)
     {
