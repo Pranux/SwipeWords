@@ -1,3 +1,7 @@
+using WebApplication1.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,29 +20,29 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+// showcases the existence of a certain flashcard. 
+// If you try to print flashcard information instead an error appears, which i was not able to solve.
+app.MapGet("/Flashcard/{id}", static (Guid id) =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
+        foreach (var Flashcard in FlashcardStorage.Flashcards) {
+            if(Flashcard.Id == id){
+                return "Flashcard does exist";
+            }
+        }
+        return "No such flashcard exists.";
     })
-    .WithName("GetWeatherForecast")
+    .WithName("Get Flashcard")
+    .WithOpenApi();
+
+
+// Currently acts as a flashcard maker which puts makes and adds flashcards into one list
+app.MapPost("/Flashcard", () =>
+    {
+        var flashcard = new Flashcard("goodwords.txt", "badwords.txt");
+        FlashcardStorage.Flashcards.Add(flashcard);
+        return $"Flashcard has been posted successfully with id: {flashcard.Id}.";
+    })
+    .WithName("Post Flashcard")
     .WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
