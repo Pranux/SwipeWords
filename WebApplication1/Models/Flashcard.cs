@@ -20,25 +20,17 @@ public class Flashcard
     private List<string> IncorrectWords { get; set; }  // for storing incorrect words read from file
     
     // Constructor
-    public Flashcard(string correctWordsFilePath, string incorrectWordsFilePath)
+    public Flashcard(DatabaseContext databaseContext, int wordCount = 5, double exclusionPercentage = 0.30)
     {
-        Id = Guid.NewGuid(); // assign ID to each card
+        Id = Guid.NewGuid(); 
         
-        // READ CORRECT AND INCORRECT WORDS MAYBE GOES HERE
-        CorrectWords = File.ReadAllLines(correctWordsFilePath).ToList();
-        IncorrectWords = File.ReadAllLines(incorrectWordsFilePath).ToList();
-        
+        CorrectWords = databaseContext.GetSelectedCorrectWords(wordCount, exclusionPercentage);
+        IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount, exclusionPercentage);
 
-        Words = GetRandomWords(CorrectWords); // get 5 random correct words into buffer
-        MixedWords = MixInIncorrectWords(Words); // add incorrect words
+        MixedWords = MixInIncorrectWords(CorrectWords); 
     }
     
-    private List<string> GetRandomWords(List<string> wordList)
-    {
-        var random = new Random();
-        return wordList.OrderBy(x => random.Next()).Take(5).ToList(); // select 5 random words
-    }
-
+    
     private List<string> MixInIncorrectWords(List<string> correctWords)
     {
         var mixedWords = new List<string>(correctWords); // start with correct words
