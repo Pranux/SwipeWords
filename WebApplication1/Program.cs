@@ -12,6 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("FlashcardGameD
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<FlashcardGameDatabaseContext>(options =>
     options.UseSqlServer(connectionString));
@@ -28,14 +29,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/GetFlashcards", (FlashcardGameDatabaseContext databaseContext) =>
-    {
-        var flashcard = new Flashcard(databaseContext); // add word count from request
-    
-        return Results.Ok(flashcard.GetMixedWords);
-    })
-    .WithName("GetFlashcards")
-    .WithOpenApi();
-
+app.MapControllers();
 
 app.Run();
