@@ -18,6 +18,32 @@ namespace WebApplication1.Models
             return new MySqlConnection(ConnectionString);
         }
 
+        public int CalculateOffset(string command, MySqlConnection conn, double exclusionPercentage)
+        {
+            MySqlCommand countCmd = new MySqlCommand(command, conn);
+            var totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
+            var offset = (int)(totalWords * exclusionPercentage);
+            return offset;
+        }
+
+        public List<string> AddWordsToList(string query, MySqlConnection conn, int offset, int amount)
+        {
+            List<string> selectedWords = new List<string>();
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@offset", offset);
+            cmd.Parameters.AddWithValue("@amount", amount);
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    selectedWords.Add(reader.GetString("word"));
+                }
+            }
+            return selectedWords;
+        }
+        
         public List<string> GetSelectedCorrectWords(int amount = 5, double exclusionPercentage = 0.30)
         {
             List<string> selectedWords = new List<string>();
@@ -42,24 +68,10 @@ namespace WebApplication1.Models
                     ORDER BY RAND()
                     LIMIT @amount";
 
-                // Get the total count of words
-                MySqlCommand countCmd = new MySqlCommand("SELECT COUNT(*) FROM CorrectWords", conn);
-                var totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
-                var offset = (int)(totalWords * exclusionPercentage);
+                var offset = CalculateOffset("SELECT COUNT(*) FROM CorrectWords", conn, exclusionPercentage);
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@offset", offset);
-                cmd.Parameters.AddWithValue("@amount", amount);
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        selectedWords.Add(reader.GetString("word"));
-                    }
-                }
+                selectedWords = AddWordsToList(query, conn, offset, amount);
             }
-
             return selectedWords;
         }
         
@@ -87,22 +99,9 @@ namespace WebApplication1.Models
                     ORDER BY RAND()
                     LIMIT @amount";
 
-                // Get the total count of words
-                MySqlCommand countCmd = new MySqlCommand("SELECT COUNT(*) FROM IncorrectWords", conn);
-                var totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
-                var offset = (int)(totalWords * exclusionPercentage);
+                var offset = CalculateOffset("SELECT COUNT(*) FROM IncorrectWords", conn, exclusionPercentage);
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@offset", offset);
-                cmd.Parameters.AddWithValue("@amount", amount);
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        selectedWords.Add(reader.GetString("word"));
-                    }
-                }
+                selectedWords = AddWordsToList(query, conn, offset, amount);
             }
             return selectedWords;
         }
