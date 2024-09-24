@@ -46,17 +46,4 @@ app.MapGet("/GetFlashcards", (DatabaseContext databaseContext) =>
     .WithName("GetFlashcards")
     .WithOpenApi();
 
-
-// Currently acts as a flashcard maker which puts makes and adds flashcards into one list
-// app.MapPost("/Flashcard", () =>
-//     {
-//         var flashcard = new Flashcard("goodwords.txt", "badwords.txt");
-//         FlashcardStorage.Flashcards.Add(flashcard);
-//         return $"Flashcard has been posted successfully with id: {flashcard.Id}.";
-//     })
-//     .WithName("Post Flashcard")
-//     .WithOpenApi();
-
-//why are you making post for creating a flashcard??
-
 app.Run();
