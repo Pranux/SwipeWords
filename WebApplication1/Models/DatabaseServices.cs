@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         {
             return new MySqlConnection(ConnectionString);
         }
-        
+
         public List<string> GetSelectedCorrectWords(int amount = 5, double exclusionPercentage = 0.30)
         {
             List<string> selectedWords = new List<string>();
@@ -27,7 +27,7 @@ namespace WebApplication1.Models
                 conn.Open();
                 
                 // Query to select words excluding the top percentage by frequency
-                string query = @"
+                var query = @"
                     SELECT word 
                     FROM CorrectWords
                     WHERE frequency < (
@@ -44,8 +44,8 @@ namespace WebApplication1.Models
 
                 // Get the total count of words
                 MySqlCommand countCmd = new MySqlCommand("SELECT COUNT(*) FROM CorrectWords", conn);
-                int totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
-                int offset = (int)(totalWords * exclusionPercentage);
+                var totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
+                var offset = (int)(totalWords * exclusionPercentage);
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@offset", offset);
@@ -72,7 +72,7 @@ namespace WebApplication1.Models
                 conn.Open();
                 
                 // Query to select words excluding the top percentage by frequency
-                string query = @"
+                var query = @"
                     SELECT word 
                     FROM IncorrectWords
                     WHERE frequency < (
@@ -89,8 +89,8 @@ namespace WebApplication1.Models
 
                 // Get the total count of words
                 MySqlCommand countCmd = new MySqlCommand("SELECT COUNT(*) FROM IncorrectWords", conn);
-                int totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
-                int offset = (int)(totalWords * exclusionPercentage);
+                var totalWords = Convert.ToInt32(countCmd.ExecuteScalar());
+                var offset = (int)(totalWords * exclusionPercentage);
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@offset", offset);

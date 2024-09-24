@@ -35,7 +35,7 @@ public class Flashcard
     {
         var mixedWords = new List<string>(correctWords); // start with correct words
         var random = new Random();
-        int numIncorrect = random.Next(0, 3); // replace 0-2 correct words with incorrect ones
+        var numIncorrect = random.Next(0, 3); // replace 0-2 correct words with incorrect ones
 
         for (int i = 0; i < numIncorrect; i++)
         {
@@ -49,7 +49,7 @@ public class Flashcard
     public bool IsAnswerCorrect(bool userAnswer)
     {
         // compare the buffer of correct words and mixed words to determine if any are incorrect
-        bool allWordsCorrect = Words.SequenceEqual(MixedWords);
+        var allWordsCorrect = Words.SequenceEqual(MixedWords);
         return userAnswer == allWordsCorrect;
     }
 
