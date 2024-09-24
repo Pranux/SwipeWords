@@ -1,16 +1,23 @@
 using WebApplication1.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton(new DatabaseContext("Server=localhost;Database=WordsManagement;User=root;Password=password;"));
+var connectionString = builder.Configuration.GetConnectionString("FlashcardGameDbConnectionString");
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<FlashcardGameDatabaseContext>(options =>
+    options.UseSqlServer(connectionString));
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -36,7 +43,7 @@ app.MapGet("/Flashcard/{id}", static (Guid id) =>
     .WithOpenApi();
 
 
-app.MapGet("/GetFlashcards", (DatabaseContext databaseContext) =>
+app.MapGet("/GetFlashcards", (FlashcardGameDatabaseContext databaseContext) =>
     {
         var flashcard = new Flashcard(databaseContext, 5, 0.30); 
         var flashcardData = flashcard.GetFlashcardData();
