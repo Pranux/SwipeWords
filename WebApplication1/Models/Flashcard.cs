@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebApplication1.Data;
 
 
 namespace WebApplication1.Models;
@@ -20,14 +21,16 @@ public class Flashcard
     private List<string> IncorrectWords { get; set; }  // for storing incorrect words read from file
     
     // Constructor
-    public Flashcard(DatabaseContext databaseContext, int wordCount = 5, double exclusionPercentage = 0.30)
+    public Flashcard(FlashcardGameDatabaseContext databaseContext, int wordCount = 5, double exclusionPercentage = 0.30)
     {
         Id = Guid.NewGuid(); 
         
-        CorrectWords = databaseContext.GetSelectedCorrectWords(wordCount, exclusionPercentage);
-        IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount, exclusionPercentage);
-
-        MixedWords = MixInIncorrectWords(CorrectWords); 
+       CorrectWords = databaseContext.GetSelectedCorrectWords(wordCount, exclusionPercentage);
+         IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount, exclusionPercentage);
+          
+          Words = CorrectWords;
+          MixedWords = MixInIncorrectWords(CorrectWords);
+          
     }
     
     
