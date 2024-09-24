@@ -28,42 +28,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// showcases the existence of a certain flashcard. 
-// If you try to print flashcard information instead an error appears, which i was not able to solve.
-app.MapGet("/Flashcard/{id}", static (Guid id) =>
-    {
-        foreach (var Flashcard in FlashcardStorage.Flashcards) {
-            if(Flashcard.Id == id){
-                return "Flashcard does exist";
-            }
-        }
-        return "No such flashcard exists.";
-    })
-    .WithName("Get Flashcard")
-    .WithOpenApi();
-
-
 app.MapGet("/GetFlashcards", (FlashcardGameDatabaseContext databaseContext) =>
     {
-        var flashcard = new Flashcard(databaseContext, 5, 0.30); 
-        var flashcardData = flashcard.GetFlashcardData();
+        var flashcard = new Flashcard(databaseContext); // add word count from request
     
-        return Results.Ok(flashcardData);
+        return Results.Ok(flashcard.GetMixedWords);
     })
     .WithName("GetFlashcards")
     .WithOpenApi();
 
-
-// Currently acts as a flashcard maker which puts makes and adds flashcards into one list
-// app.MapPost("/Flashcard", () =>
-//     {
-//         var flashcard = new Flashcard("goodwords.txt", "badwords.txt");
-//         FlashcardStorage.Flashcards.Add(flashcard);
-//         return $"Flashcard has been posted successfully with id: {flashcard.Id}.";
-//     })
-//     .WithName("Post Flashcard")
-//     .WithOpenApi();
-
-//why are you making post for creating a flashcard??
 
 app.Run();
