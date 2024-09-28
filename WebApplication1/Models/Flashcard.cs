@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using WebApplication1.Data;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 
 namespace WebApplication1.Models;
@@ -10,59 +12,59 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;  
 
 public class Flashcard
 {
-    public Guid Id { get; private set; }        
-    public List<string> Words { get; private set; } // buffer for selected amount of correct words
-    public List<string> MixedWords { get; private set; } // for storing both correct and incorrect words
-
-    private List<string> CorrectWords { get; set; }  // for storing correct words read from file
-    private List<string> IncorrectWords { get; set; }  // for storing incorrect words read from file
+    public Guid Id { get;}     
+    private List<string> CorrectWords { get; }
+    private List<string> IncorrectWords { get;} 
     
-    // Constructor
-    public Flashcard(FlashcardGameDatabaseContext databaseContext, int wordCount = 5, double exclusionPercentage = 0.30)
+    public Flashcard(FlashcardGameDatabaseContext databaseContext, int wordCount = 5)
     {
         Id = Guid.NewGuid(); 
-        
-       CorrectWords = databaseContext.GetSelectedCorrectWords(wordCount, exclusionPercentage);
-         IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount, exclusionPercentage);
-          
-          Words = CorrectWords;
-          MixedWords = MixInIncorrectWords(CorrectWords);
-          
-    }
-    
-    
-    private List<string> MixInIncorrectWords(List<string> correctWords)
-    {
-        var mixedWords = new List<string>(correctWords); // start with correct words
         var random = new Random();
-        int numIncorrect = random.Next(0, 3); // replace 0-2 correct words with incorrect ones
 
-        for (int i = 0; i < numIncorrect; i++)
-        {
-            mixedWords[i] = IncorrectWords[random.Next(IncorrectWords.Count)];
-        }
-
-        return mixedWords;
+        var numCorrectWords = random.Next((int)(wordCount * 0.25), (int)(wordCount * 0.75));
+        
+        CorrectWords = databaseContext.GetSelectedCorrectWords(numCorrectWords);
+        IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount-numCorrectWords);
+    }
+    ~Flashcard() //TODO: would be nice to have a db instead of json; that's just a temporary solution; save and retrieve parts as well
+    {
+        Save();
+    }
+    public List<string> GetMixedWords()
+    {
+        var random = new Random();
+        return CorrectWords.Concat(IncorrectWords).OrderBy(x => random.Next()).ToList();
+    }
+    
+    public static (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(List<string> userCorrect, List<string> userIncorrect, Guid flashcardId)
+    {
+        
+        var correctWords = GetCorrectWordsById(flashcardId);
+        var incorrectWords = GetIncorrectWordsById(flashcardId);
+        
+        var correctMatches = correctWords.Intersect(userCorrect).Count();
+        var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
+        var score = correctMatches + incorrectMatches;
+        
+        return (score, correctWords, incorrectWords);
+    }
+    
+    private void Save() //TODO: needs a database. same for nex 2 functions
+    {
+        
+    }
+    
+    public static List<string> GetCorrectWordsById(Guid id)
+    {
+        return null!;
     }
 
-    // Method to check if the user's answer is correct
-    public bool IsAnswerCorrect(bool userAnswer)
+    public static List<string> GetIncorrectWordsById(Guid id)
     {
-        // compare the buffer of correct words and mixed words to determine if any are incorrect
-        bool allWordsCorrect = Words.SequenceEqual(MixedWords);
-        return userAnswer == allWordsCorrect;
-    }
-
-    // returning flashcard data for communication with the frontend
-    public Dictionary<string, object> GetFlashcardData()
-    {
-        return new Dictionary<string, object>
-        {
-            { "id", Id },
-            { "words", MixedWords }
-        };
+        return null!;
     }
 }

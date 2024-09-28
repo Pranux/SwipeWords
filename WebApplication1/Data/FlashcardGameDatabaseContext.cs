@@ -25,7 +25,7 @@ public class FlashcardGameDatabaseContext : DbContext
         modelBuilder.Entity<IncorrectWord>().HasData(incorrectWords.ToArray());
     }
             
-    public List<string> GetSelectedCorrectWords(int amount , double exclusionPercentage )
+    public List<string> GetSelectedCorrectWords(int amount , double exclusionPercentage = 0.3 )
     {
         int totalWords = CorrectWords.Count();
         int offset = (int)(totalWords * exclusionPercentage);
@@ -41,7 +41,7 @@ public class FlashcardGameDatabaseContext : DbContext
         return selectedWords;
     }
 
-    public List<string> GetSelectedIncorrectWords(int amount, double exclusionPercentage )
+    public List<string> GetSelectedIncorrectWords(int amount, double exclusionPercentage = 0.3 )
     {
         int totalWords = IncorrectWords.Count();
         int offset = (int)(totalWords * exclusionPercentage);
