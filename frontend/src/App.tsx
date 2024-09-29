@@ -16,10 +16,10 @@ function HomePage() {
   const [flashcards, setFlashcards] = React.useState('');
   const getFlashcards = async () => {
     try {
-      const route = await fetch("https://localhost:44398/GetFlashcards");
+      const route = await fetch("https://localhost:44398/api/Flashcards/GetFlashcards?wordCount=5");
       const json = await route.json();
       console.log(json);
-      setFlashcards(json.summary);
+      setFlashcards(json);
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +34,12 @@ function HomePage() {
     // Event handler to go to the next flashcard
     const handleNext = () => {
         setCurrentCard((prevCard) => (prevCard + 1) % tempFlashcards.length);
+
+    // Event handler to go to the next flashcard
+    const handleNext = () => {
+        if (currentCard < flashcards.length - 1) {
+            setCurrentCard(currentCard + 1);
+        }
     };
   
   return (
@@ -48,7 +54,7 @@ function HomePage() {
               </ul>
           </nav>
           <div className="flashcard">
-              <h1>{tempFlashcards[currentCard]}</h1>
+              <h1>{flashcards.length > 0 ? flashcards[currentCard] : 'No flashcards available'}</h1>
           </div>
           <div className="buttons">
               <button onClick={handleNext} disabled={currentCard === flashcards.length - 1}>
