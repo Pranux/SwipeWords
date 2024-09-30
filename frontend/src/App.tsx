@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   createBrowserRouter,
-  Link,
   RouterProvider
 } from 'react-router-dom';
 import './App.css';
@@ -30,7 +29,11 @@ function HomePage() {
     const [currentCard, setCurrentCard] = useState(0);
 
     // Array of flashcards (can be numbers or any content)
-    // const tempFlashcards = [1, 2, 3, 4, 5];
+    var tempFlashcards = [1, 2, 3, 4, 5];
+
+    // Event handler to go to the next flashcard
+    const handleNext = () => {
+        setCurrentCard((prevCard) => (prevCard + 1) % tempFlashcards.length);
 
     // Event handler to go to the next flashcard
     const handleNext = () => {
@@ -45,9 +48,9 @@ function HomePage() {
           <nav className="navbar">
               <div className="logo">Flashcard App</div>
               <ul>
-                  <li><a href="#home">Home</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li><a href="flash-card-game-1">Flash card game #1</a></li>
+                  <li><a href="flash-card-game-2">Flash card game #2</a></li>
+                  <li><a href="flash-card-game-3">Flash card game #3</a></li>
               </ul>
           </nav>
           <div className="flashcard">
