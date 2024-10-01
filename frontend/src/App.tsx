@@ -6,10 +6,22 @@ import {
 import './App.css';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-  }
+    {
+        path: '/',
+        element: <HomePage />,
+    }, 
+    {
+        path: '/flash-card-game-1',
+        element: <HomePage />,
+    },
+    {
+        path: '/flash-card-game-2',
+        element: <HomePage />,
+    },
+    {
+        path: '/flash-card-game-3',
+        element: <HomePage />,
+    },
 ]);
 
 function HomePage() {
@@ -34,19 +46,13 @@ function HomePage() {
     // Event handler to go to the next flashcard
     const handleNext = () => {
         setCurrentCard((prevCard) => (prevCard + 1) % tempFlashcards.length);
-
-    // Event handler to go to the next flashcard
-    const handleNext = () => {
-        if (currentCard < flashcards.length - 1) {
-            setCurrentCard(currentCard + 1);
-        }
     };
   
   return (
 
       <div className="App">
           <nav className="navbar">
-              <div className="logo">Flashcard App</div>
+              <div className="logo"><a href="/">Flashcard App</a></div>
               <ul>
                   <li><a href="flash-card-game-1">Flash card game #1</a></li>
                   <li><a href="flash-card-game-2">Flash card game #2</a></li>
@@ -54,13 +60,13 @@ function HomePage() {
               </ul>
           </nav>
           <div className="flashcard">
-              <h1>{flashcards.length > 0 ? flashcards[currentCard] : 'No flashcards available'}</h1>
+              <h1>{tempFlashcards.length > 0 ? tempFlashcards[currentCard] : 'No flashcards available'}</h1>
           </div>
           <div className="buttons">
-              <button onClick={handleNext} disabled={currentCard === flashcards.length - 1}>
+              <button onClick={handleNext}>
               Not OK
               </button>
-              <button onClick={handleNext} disabled={currentCard === flashcards.length - 1}>
+              <button onClick={handleNext}>
                   OK
               </button>
           </div>
