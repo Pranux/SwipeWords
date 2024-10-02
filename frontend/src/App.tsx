@@ -4,6 +4,8 @@ import HomePage from './HomePage';
 import GamePage from './GamePage';
 import LeaderboardPage from './LeaderboardPage';
 import './App.css';
+import  './ResultsPage';
+import ResultsPage from "./ResultsPage";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: '/leaderboard',
         element: <LeaderboardPage />,
+    },
+    {
+        path: '/results',
+        element: <ResultsPage />,
     }
 ]);
 
