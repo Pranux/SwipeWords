@@ -5,6 +5,7 @@ import FAQItem from './FAQItem';
 import './App.css';
 import './HomePage.css';
 
+
 const HomePage = () => {
     const [counter, setCounter] = useState(0);
     const [expanded, setExpanded] = useState<number | null>(null);

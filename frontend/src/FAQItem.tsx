@@ -1,4 +1,5 @@
 import React from 'react';
+import './FAQItem.css'
 
 interface FAQItemProps {
     question: string;
