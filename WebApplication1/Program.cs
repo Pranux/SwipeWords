@@ -13,6 +13,15 @@ var connectionString = builder.Configuration.GetConnectionString("FlashcardGameD
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddDbContext<FlashcardGameDatabaseContext>(options =>
     options.UseSqlServer(connectionString));
@@ -28,6 +37,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseCors("AllowAllOrigins");
+app.UseAuthorization();
 
 app.MapControllers();
 
