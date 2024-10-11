@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
@@ -29,10 +30,11 @@ public class Flashcard
         
         CorrectWords = databaseContext.GetSelectedCorrectWords(numCorrectWords);
         IncorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount-numCorrectWords);
+
+        Save(databaseContext);
     }
     ~Flashcard() //TODO: would be nice to have a db instead of json; that's just a temporary solution; save and retrieve parts as well
     {
-        Save();
     }
     public List<string> GetMixedWords()
     {
@@ -40,11 +42,15 @@ public class Flashcard
         return CorrectWords.Concat(IncorrectWords).OrderBy(x => random.Next()).ToList();
     }
     
-    public static (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(List<string> userCorrect, List<string> userIncorrect, Guid flashcardId)
+    public static (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(
+        List<string> userCorrect,
+        List<string> userIncorrect,
+        Guid flashcardId,
+        FlashcardGameDatabaseContext databaseContext)
     {
         
-        var correctWords = GetCorrectWordsById(flashcardId);
-        var incorrectWords = GetIncorrectWordsById(flashcardId);
+        var correctWords = GetCorrectWordsById(flashcardId, databaseContext);
+        var incorrectWords = GetIncorrectWordsById(flashcardId, databaseContext);
         
         var correctMatches = correctWords.Intersect(userCorrect).Count();
         var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
@@ -53,18 +59,36 @@ public class Flashcard
         return (score, correctWords, incorrectWords);
     }
     
-    private void Save() //TODO: needs a database. same for nex 2 functions
+    private void Save(FlashcardGameDatabaseContext databaseContext) //TODO: needs a database. same for nex 2 functions
     {
+        var flashcardEntity = new FlashcardEntity
+        {
+            Id = this.Id,
+            CorrectWords = string.Join(",", this.CorrectWords),
+            IncorrectWords = string.Join(",", this.IncorrectWords)
+        };
+        databaseContext.Add(flashcardEntity);
+        databaseContext.SaveChanges();
         
     }
-    
-    public static List<string> GetCorrectWordsById(Guid id)
+
+    public static List<string> GetCorrectWordsById(Guid id, FlashcardGameDatabaseContext databaseContext)
     {
-        return null!;
+        var flashcardEntity = databaseContext.Flashcards.Find(id);
+        if (flashcardEntity == null)
+        {
+            throw new Exception("Flashcard not found");
+        }
+        return flashcardEntity.CorrectWords.Split(",").ToList();
     }
 
-    public static List<string> GetIncorrectWordsById(Guid id)
+    public static List<string> GetIncorrectWordsById(Guid id, FlashcardGameDatabaseContext databaseContext)
     {
-        return null!;
+        var flashcardEntity = databaseContext.Flashcards.Find(id);
+        if (flashcardEntity == null)
+        {
+            throw new Exception("Flashcard not found");
+        }
+        return flashcardEntity.IncorrectWords.Split(",").ToList();
     }
 }

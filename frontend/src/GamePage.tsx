@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './GamePage.css';
 
@@ -10,19 +10,22 @@ const GamePage = () => {
     const [results, setResults] = useState<{ word: string, correct: boolean }[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [flashcardId, setFlashcardId] = useState<string>(''); // State for flashcard ID
 
     useEffect(() => {
         const query = new URLSearchParams(location.search);
-        const wordCount = parseInt(query.get('wordCount') || '10');
+        const wordCount = parseInt(query.get('wordCount') || '10', 10);
 
         const fetchFlashcards = async () => {
             try {
-                const response = await fetch(`http://localhost:5212/api/Flashcards/GetFlashcards?wordCount=${wordCount}`);
+                const response = await fetch(`https://localhost:44398/api/Flashcards/GetFlashcards?wordCount=${wordCount}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const jsonWords: string[] = await response.json();
-                setWordList(jsonWords);
+                const data = await response.json();
+                setWordList(data.mixedWords); // Use 'mixedWords' from the response
+                setFlashcardId(data.flashcardId); // Use 'flashcardId' from the response
+                console.log('Flashcard ID in GamePage:', data.flashcardId); // Log the flashcard ID
             } catch (err) {
                 setError((err as Error).message);
             } finally {
@@ -39,12 +42,12 @@ const GamePage = () => {
         if (currentWordIndex < wordList.length - 1) {
             setCurrentWordIndex(currentWordIndex + 1);
         } else {
-            navigate('/results', { state: { results: [...results, { word: currentWord, correct: isCorrect }] } });
+            navigate('/results', { state: { results: [...results, { word: currentWord, correct: isCorrect }], flashcardId } });
         }
     };
 
     const handleEndNow = () => {
-        navigate('/results', { state: { results } });
+        navigate('/results', { state: { results, flashcardId } });
     };
 
     if (loading) {

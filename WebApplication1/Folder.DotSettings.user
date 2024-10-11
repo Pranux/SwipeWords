@@ -1,0 +1,7 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4b8f5f6b_002D9fdc_002D4834_002Dad38_002D5e1d77197f76/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FlashcardTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::09F264D8-E5EF-77CE-7A69-21007E29DEF9::net8.0::FlashcardTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::09F264D8-E5EF-77CE-7A69-21007E29DEF9::net8.0::FlashcardScoreTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -13,6 +13,8 @@ public class FlashcardGameDatabaseContext : DbContext
 
     public DbSet<CorrectWord> CorrectWords { get; set; }
     public DbSet<IncorrectWord> IncorrectWords { get; set; }
+    
+    public DbSet<FlashcardEntity> Flashcards { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
