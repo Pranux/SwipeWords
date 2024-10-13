@@ -1,22 +1,28 @@
 using WebApplication1.Data;
-
-namespace WebApplication1.Models;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
 
-public static class DataSeederWords
+namespace WebApplication1.Models
 {
-    public static List<CorrectWord> GetCorrectWordsFromFile(string filePath)
+    public static class DataSeederWords
     {
-        var jsonData = File.ReadAllText(filePath);
-        return JsonConvert.DeserializeObject<List<CorrectWord>>(jsonData);
-    }
+        public static List<CorrectWord> GetCorrectWordsFromFile(string filePath)
+        {
+            using (var streamReader = new StreamReader(filePath))
+            {
+                var jsonData = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<List<CorrectWord>>(jsonData);
+            }
+        }
 
-    public static List<IncorrectWord> GetIncorrectWordsFromFile(string filePath)
-    {
-        var jsonData = File.ReadAllText(filePath);
-        return JsonConvert.DeserializeObject<List<IncorrectWord>>(jsonData);
+        public static List<IncorrectWord> GetIncorrectWordsFromFile(string filePath)
+        {
+            using (var streamReader = new StreamReader(filePath))
+            {
+                var jsonData = streamReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<List<IncorrectWord>>(jsonData);
+            }
+        }
     }
 }

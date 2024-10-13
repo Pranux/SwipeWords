@@ -26,38 +26,6 @@ public class FlashcardGameDatabaseContext : DbContext
         modelBuilder.Entity<CorrectWord>().HasData(correctWords.ToArray());
         modelBuilder.Entity<IncorrectWord>().HasData(incorrectWords.ToArray());
     }
-            
-    public List<string> GetSelectedCorrectWords(int amount , double exclusionPercentage = 0.3 )
-    {
-        int totalWords = CorrectWords.Count();
-        int offset = (int)(totalWords * exclusionPercentage);
-
-        var selectedWords = CorrectWords
-            .OrderByDescending(cw => cw.Frequency)
-            .Skip(offset)
-            .OrderBy(cw => Guid.NewGuid())
-            .Take(amount)
-            .Select(cw => cw.Word)
-            .ToList();
-
-        return selectedWords;
-    }
-
-    public List<string> GetSelectedIncorrectWords(int amount, double exclusionPercentage = 0.3 )
-    {
-        int totalWords = IncorrectWords.Count();
-        int offset = (int)(totalWords * exclusionPercentage);
-
-        var selectedWords = IncorrectWords
-            .OrderByDescending(iw => iw.Frequency)
-            .Skip(offset)
-            .OrderBy(iw => Guid.NewGuid())
-            .Take(amount)
-            .Select(iw => iw.Word)
-            .ToList();
-
-        return selectedWords;
-    }
 }
 
 public class UsersDatabaseContext : DbContext

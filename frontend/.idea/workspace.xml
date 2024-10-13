@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f57a6a6-eff9-4e0b-87ce-53240206f72a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Controllers/FlashcardsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Controllers/FlashcardsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardGameDatabaseContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardGameDatabaseContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/FlashcardMigrations/FlashcardGameDatabaseContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/FlashcardMigrations/FlashcardGameDatabaseContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/CorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/CorrectWord.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardEntity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/IncorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/IncorrectWord.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebApplication1/Models/DataSeederWords.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Models/DataSeederWords.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebApplication1/Models/Flashcard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Models/Flashcard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Models/FlashcardStorage.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/WebApplication1.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/WebApplication1.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GamePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResultsPage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResultsPage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResultsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResultsPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +49,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;connecting-backend-to-frontend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#13 on connecting-backend-to-frontend&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -89,7 +85,9 @@
       <workItem from="1728553322304" duration="2931000" />
       <workItem from="1728558226931" duration="1066000" />
       <workItem from="1728654100003" duration="1074000" />
-      <workItem from="1728662849368" duration="3880000" />
+      <workItem from="1728662849368" duration="4291000" />
+      <workItem from="1728819990849" duration="3033000" />
+      <workItem from="1728847433372" duration="862000" />
     </task>
     <servers />
   </component>

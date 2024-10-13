@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using WebApplication1.Data;
 using WebApplication1.Models;
 using Xunit;
@@ -36,7 +35,7 @@ public class FlashcardTests
         var flashcardId = flashcardEntity.Id;
 
         // Act
-        var correctWords = Flashcard.GetCorrectWordsById(flashcardId, context);
+        var correctWords = context.GetCorrectWordsById(flashcardId);
 
         // Assert
         Assert.Equal(new List<string> { "apple", "banana", "orange" }, correctWords);
@@ -51,7 +50,7 @@ public class FlashcardTests
         var flashcardId = flashcardEntity.Id;
 
         // Act
-        var incorrectWords = Flashcard.GetIncorrectWordsById(flashcardId, context);
+        var incorrectWords = context.GetIncorrectWordsById(flashcardId);
 
         // Assert
         Assert.Equal(new List<string> { "carrot", "potato", "tomato" }, incorrectWords);

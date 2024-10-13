@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Data;
 
-public class IncorrectWord
+public record IncorrectWord
 {
     [Key]
     public int WordId { get; set; }
