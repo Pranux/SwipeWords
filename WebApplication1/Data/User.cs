@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Data;
 
-public class User
+public record User
 {
     [Key]
     public int UserId { get; set; }

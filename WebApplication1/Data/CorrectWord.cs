@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication1.Data;
 
-public class CorrectWord
+public record CorrectWord
 {
     [Key]
     public int WordId { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Data;
 
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.FlashcardMigrations
 {
     [DbContext(typeof(FlashcardGameDatabaseContext))]
-    partial class FlashcardGameDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241008215936_added flashcard entity class")]
+    partial class addedflashcardentityclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace WebApplication1.FlashcardMigrations
 
                     b.HasKey("WordId");
 
-                    b.ToTable("CorrectWords", (string)null);
+                    b.ToTable("CorrectWords");
 
                     b.HasData(
                         new
@@ -660,7 +663,7 @@ namespace WebApplication1.FlashcardMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Flashcards", (string)null);
+                    b.ToTable("Flashcards");
                 });
 
             modelBuilder.Entity("WebApplication1.Data.IncorrectWord", b =>
@@ -680,7 +683,7 @@ namespace WebApplication1.FlashcardMigrations
 
                     b.HasKey("WordId");
 
-                    b.ToTable("IncorrectWords", (string)null);
+                    b.ToTable("IncorrectWords");
 
                     b.HasData(
                         new
