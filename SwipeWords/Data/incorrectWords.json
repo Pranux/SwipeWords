@@ -1,0 +1,502 @@
+[
+  {
+    "WordId": 1,
+    "Word": "appl",
+    "Frequency": 50
+  },
+  {
+    "WordId": 2,
+    "Word": "banan",
+    "Frequency": 60
+  },
+  {
+    "WordId": 3,
+    "Word": "chery",
+    "Frequency": 55
+  },
+  {
+    "WordId": 4,
+    "Word": "dat",
+    "Frequency": 52
+  },
+  {
+    "WordId": 5,
+    "Word": "elderbery",
+    "Frequency": 51
+  },
+  {
+    "WordId": 6,
+    "Word": "fg",
+    "Frequency": 53
+  },
+  {
+    "WordId": 7,
+    "Word": "grap",
+    "Frequency": 54
+  },
+  {
+    "WordId": 8,
+    "Word": "honeyde",
+    "Frequency": 56
+  },
+  {
+    "WordId": 9,
+    "Word": "kiw",
+    "Frequency": 57
+  },
+  {
+    "WordId": 10,
+    "Word": "lemonn",
+    "Frequency": 58
+  },
+  {
+    "WordId": 11,
+    "Word": "mngo",
+    "Frequency": 59
+  },
+  {
+    "WordId": 12,
+    "Word": "nectarin",
+    "Frequency": 61
+  },
+  {
+    "WordId": 13,
+    "Word": "orane",
+    "Frequency": 62
+  },
+  {
+    "WordId": 14,
+    "Word": "papay",
+    "Frequency": 63
+  },
+  {
+    "WordId": 15,
+    "Word": "quinc",
+    "Frequency": 64
+  },
+  {
+    "WordId": 16,
+    "Word": "raspbery",
+    "Frequency": 65
+  },
+  {
+    "WordId": 17,
+    "Word": "strawbery",
+    "Frequency": 66
+  },
+  {
+    "WordId": 18,
+    "Word": "tangerin",
+    "Frequency": 67
+  },
+  {
+    "WordId": 19,
+    "Word": "uglii",
+    "Frequency": 68
+  },
+  {
+    "WordId": 20,
+    "Word": "vanila",
+    "Frequency": 69
+  },
+  {
+    "WordId": 21,
+    "Word": "watermeln",
+    "Frequency": 70
+  },
+  {
+    "WordId": 22,
+    "Word": "xigu",
+    "Frequency": 71
+  },
+  {
+    "WordId": 23,
+    "Word": "yellowfrut",
+    "Frequency": 72
+  },
+  {
+    "WordId": 24,
+    "Word": "zuchini",
+    "Frequency": 73
+  },
+  {
+    "WordId": 25,
+    "Word": "apricott",
+    "Frequency": 74
+  },
+  {
+    "WordId": 26,
+    "Word": "blackbery",
+    "Frequency": 75
+  },
+  {
+    "WordId": 27,
+    "Word": "cantalop",
+    "Frequency": 76
+  },
+  {
+    "WordId": 28,
+    "Word": "dragonfrut",
+    "Frequency": 77
+  },
+  {
+    "WordId": 29,
+    "Word": "elderflwer",
+    "Frequency": 78
+  },
+  {
+    "WordId": 30,
+    "Word": "figs",
+    "Frequency": 79
+  },
+  {
+    "WordId": 31,
+    "Word": "grapefrut",
+    "Frequency": 80
+  },
+  {
+    "WordId": 32,
+    "Word": "hucklberry",
+    "Frequency": 81
+  },
+  {
+    "WordId": 33,
+    "Word": "indianfg",
+    "Frequency": 82
+  },
+  {
+    "WordId": 34,
+    "Word": "jackfrut",
+    "Frequency": 83
+  },
+  {
+    "WordId": 35,
+    "Word": "kumquatt",
+    "Frequency": 84
+  },
+  {
+    "WordId": 36,
+    "Word": "limee",
+    "Frequency": 85
+  },
+  {
+    "WordId": 37,
+    "Word": "mulbery",
+    "Frequency": 86
+  },
+  {
+    "WordId": 38,
+    "Word": "nectr",
+    "Frequency": 87
+  },
+  {
+    "WordId": 39,
+    "Word": "oliv",
+    "Frequency": 88
+  },
+  {
+    "WordId": 40,
+    "Word": "pech",
+    "Frequency": 89
+  },
+  {
+    "WordId": 41,
+    "Word": "plumm",
+    "Frequency": 90
+  },
+  {
+    "WordId": 42,
+    "Word": "pomegrante",
+    "Frequency": 91
+  },
+  {
+    "WordId": 43,
+    "Word": "quandng",
+    "Frequency": 92
+  },
+  {
+    "WordId": 44,
+    "Word": "rambutn",
+    "Frequency": 93
+  },
+  {
+    "WordId": 45,
+    "Word": "soursop",
+    "Frequency": 94
+  },
+  {
+    "WordId": 46,
+    "Word": "tamrind",
+    "Frequency": 95
+  },
+  {
+    "WordId": 47,
+    "Word": "uglifrut",
+    "Frequency": 96
+  },
+  {
+    "WordId": 48,
+    "Word": "voavang",
+    "Frequency": 97
+  },
+  {
+    "WordId": 49,
+    "Word": "wolfbery",
+    "Frequency": 98
+  },
+  {
+    "WordId": 50,
+    "Word": "ximeni",
+    "Frequency": 99
+  },
+  {
+    "WordId": 51,
+    "Word": "yumbery",
+    "Frequency": 100
+  },
+  {
+    "WordId": 52,
+    "Word": "ziziphus",
+    "Frequency": 101
+  },
+  {
+    "WordId": 53,
+    "Word": "almond",
+    "Frequency": 102
+  },
+  {
+    "WordId": 54,
+    "Word": "brazilnut",
+    "Frequency": 103
+  },
+  {
+    "WordId": 55,
+    "Word": "cashew",
+    "Frequency": 104
+  },
+  {
+    "WordId": 56,
+    "Word": "datefruit",
+    "Frequency": 105
+  },
+  {
+    "WordId": 57,
+    "Word": "elderberryfruit",
+    "Frequency": 106
+  },
+  {
+    "WordId": 58,
+    "Word": "figfruit",
+    "Frequency": 107
+  },
+  {
+    "WordId": 59,
+    "Word": "grapefruitfruit",
+    "Frequency": 108
+  },
+  {
+    "WordId": 60,
+    "Word": "hazelnut",
+    "Frequency": 109
+  },
+  {
+    "WordId": 61,
+    "Word": "indianalmond",
+    "Frequency": 110
+  },
+  {
+    "WordId": 62,
+    "Word": "jujube",
+    "Frequency": 111
+  },
+  {
+    "WordId": 63,
+    "Word": "kiwifruit",
+    "Frequency": 112
+  },
+  {
+    "WordId": 64,
+    "Word": "lemonfruit",
+    "Frequency": 113
+  },
+  {
+    "WordId": 65,
+    "Word": "macadamia",
+    "Frequency": 114
+  },
+  {
+    "WordId": 66,
+    "Word": "nectarfruit",
+    "Frequency": 115
+  },
+  {
+    "WordId": 67,
+    "Word": "orangefruit",
+    "Frequency": 116
+  },
+  {
+    "WordId": 68,
+    "Word": "peachfruit",
+    "Frequency": 117
+  },
+  {
+    "WordId": 69,
+    "Word": "quincefruit",
+    "Frequency": 118
+  },
+  {
+    "WordId": 70,
+    "Word": "raspberryfruit",
+    "Frequency": 119
+  },
+  {
+    "WordId": 71,
+    "Word": "strawberryfruit",
+    "Frequency": 120
+  },
+  {
+    "WordId": 72,
+    "Word": "tangerinefruit",
+    "Frequency": 121
+  },
+  {
+    "WordId": 73,
+    "Word": "uglifruitfruit",
+    "Frequency": 122
+  },
+  {
+    "WordId": 74,
+    "Word": "vanillafruit",
+    "Frequency": 123
+  },
+  {
+    "WordId": 75,
+    "Word": "watermelonfruit",
+    "Frequency": 124
+  },
+  {
+    "WordId": 76,
+    "Word": "xiguafruit",
+    "Frequency": 125
+  },
+  {
+    "WordId": 77,
+    "Word": "yellowfruitfruit",
+    "Frequency": 126
+  },
+  {
+    "WordId": 78,
+    "Word": "zucchinifruit",
+    "Frequency": 127
+  },
+  {
+    "WordId": 79,
+    "Word": "apricotfruit",
+    "Frequency": 128
+  },
+  {
+    "WordId": 80,
+    "Word": "blackberryfruit",
+    "Frequency": 129
+  },
+  {
+    "WordId": 81,
+    "Word": "cantaloupefruit",
+    "Frequency": 130
+  },
+  {
+    "WordId": 82,
+    "Word": "dragonfruitfruit",
+    "Frequency": 131
+  },
+  {
+    "WordId": 83,
+    "Word": "elderflowerfruit",
+    "Frequency": 132
+  },
+  {
+    "WordId": 84,
+    "Word": "figsfruit",
+    "Frequency": 133
+  },
+  {
+    "WordId": 85,
+    "Word": "grapefruitfruitfruit",
+    "Frequency": 134
+  },
+  {
+    "WordId": 86,
+    "Word": "huckleberryfruit",
+    "Frequency": 135
+  },
+  {
+    "WordId": 87,
+    "Word": "indianfigfruit",
+    "Frequency": 136
+  },
+  {
+    "WordId": 88,
+    "Word": "jackfruitfruit",
+    "Frequency": 137
+  },
+  {
+    "WordId": 89,
+    "Word": "kumquatfruit",
+    "Frequency": 138
+  },
+  {
+    "WordId": 90,
+    "Word": "limefruit",
+    "Frequency": 139
+  },
+  {
+    "WordId": 91,
+    "Word": "mulberryfruit",
+    "Frequency": 140
+  },
+  {
+    "WordId": 92,
+    "Word": "nectarfruitfruit",
+    "Frequency": 141
+  },
+  {
+    "WordId": 93,
+    "Word": "olivefruit",
+    "Frequency": 142
+  },
+  {
+    "WordId": 94,
+    "Word": "peachfruitfruit",
+    "Frequency": 143
+  },
+  {
+    "WordId": 95,
+    "Word": "plumfruit",
+    "Frequency": 144
+  },
+  {
+    "WordId": 96,
+    "Word": "pomegranatefruit",
+    "Frequency": 145
+  },
+  {
+    "WordId": 97,
+    "Word": "quandongfruit",
+    "Frequency": 146
+  },
+  {
+    "WordId": 98,
+    "Word": "rambutanfruit",
+    "Frequency": 147
+  },
+  {
+    "WordId": 99,
+    "Word": "soursopfruit",
+    "Frequency": 148
+  },
+  {
+    "WordId": 100,
+    "Word": "tamarindfruit",
+    "Frequency": 149
+  }
+]
