@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SwipeWords.Models;
 
+
 namespace SwipeWords.Data;
 
 public class FlashcardGameDatabaseContext : DbContext
@@ -12,7 +13,7 @@ public class FlashcardGameDatabaseContext : DbContext
 
     public DbSet<CorrectWord> CorrectWords { get; set; }
     public DbSet<IncorrectWord> IncorrectWords { get; set; }
-
+    
     public DbSet<FlashcardEntity> Flashcards { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,4 +37,5 @@ public class UsersDatabaseContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Leaderboard> Leaderboards { get; set; }
+    
 }
