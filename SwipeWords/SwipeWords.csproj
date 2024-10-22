@@ -7,9 +7,11 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>SwipeWord</RootNamespace>
         <AssemblyName>SwipeWord</AssemblyName>
+        <UserSecretsId>2162b7d3-844c-40e9-ad8b-5396efc007ed</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.8"/>

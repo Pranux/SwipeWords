@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SwipeWords.Data;
 
-public record CorrectWord
+public class CorrectWord
 {
     [Key] public int WordId { get; set; }
 

@@ -1,14 +1,17 @@
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SwipeWords.Data;
 
-public record User
+public class User
 {
-    [Key] public int UserId { get; set; }
+    [Key] public Guid UserId { get; set; }
 
     public string Name { get; set; }
 
-    public string Email { get; set; }
+    public string PasswordHash { get; set; }
 
-    public DateTime CreationDate { get; set; }
+    public string PasswordSalt { get; set; }
+    
 }

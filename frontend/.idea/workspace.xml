@@ -5,13 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f57a6a6-eff9-4e0b-87ce-53240206f72a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/CorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/CorrectWord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/FlashcardEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/IncorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/IncorrectWord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/Leaderboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Data/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Data/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Models/DataSeederWords.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Models/DataSeederWords.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebApplication1/Models/Flashcard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WebApplication1/Models/Flashcard.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SwipeWords/.idea/.idea.SwipeWords.dir/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SwipeWords/Controllers/LeaderboardController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SwipeWords/Controllers/UserController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SwipeWords/Models/PasswordHasher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SwipeWords/Models/TokenProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/.idea/config/applicationhost.config" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/.idea/config/applicationhost.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Data/CorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Data/CorrectWord.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Data/IncorrectWord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Data/IncorrectWord.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Data/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Data/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Data/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Data/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Data/Words.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Models/Flashcard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Models/Flashcard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Models/FlashcardExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/SwipeWords.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/SwipeWords.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/UsersMigrations/20240924070147_Initial.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/UsersMigrations/20240924070147_Initial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/UsersMigrations/UsersDatabaseContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SwipeWords/test/FlashcardTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SwipeWords/test/FlashcardTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +43,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Pranux/WebApplication.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/Pranux/SwipeWords.git&quot;,
     &quot;accountId&quot;: &quot;c24fbc85-a441-4f2b-a578-89256df22107&quot;
   }
 }</component>
@@ -49,7 +62,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#13 on connecting-backend-to-frontend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -88,6 +101,9 @@
       <workItem from="1728662849368" duration="4291000" />
       <workItem from="1728819990849" duration="3033000" />
       <workItem from="1728847433372" duration="862000" />
+      <workItem from="1729430936699" duration="2918000" />
+      <workItem from="1729536881173" duration="582000" />
+      <workItem from="1729611344329" duration="578000" />
     </task>
     <servers />
   </component>

@@ -3,53 +3,29 @@ using SwipeWords.Data;
 
 namespace SwipeWords.Models;
 
-public class Flashcard : IEnumerable<string>
+public class Flashcard 
 {
-    public enum FlashcardDifficulty
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-
-    private readonly Words _words;
-
-    public Flashcard(FlashcardGameDatabaseContext databaseContext, int wordCount = 5,
-        FlashcardDifficulty difficulty = FlashcardDifficulty.Medium)
+    public Flashcard(FlashcardGameDatabaseContext databaseContext, int wordCount = 5)
     {
         Id = Guid.NewGuid();
-        Difficulty = difficulty;
         var random = new Random();
 
         var numCorrectWords = random.Next((int)(wordCount * 0.25), (int)(wordCount * 0.75));
 
-        var correctWords = databaseContext.GetSelectedCorrectWords(numCorrectWords);
-        var incorrectWords = databaseContext.GetSelectedIncorrectWords(wordCount - numCorrectWords);
-
-        _words = new Words(correctWords, incorrectWords);
+        CorrectWords = GetSelectedCorrectWords(databaseContext, numCorrectWords);
+        IncorrectWords = GetSelectedIncorrectWords(databaseContext, wordCount - numCorrectWords);
 
         Save(databaseContext);
     }
 
     public Guid Id { get; }
-    public FlashcardDifficulty Difficulty { get; }
-
-    // Implementation of IEnumerable<string>
-    public IEnumerator<string> GetEnumerator()
-    {
-        return _words.CorrectWords.Concat(_words.IncorrectWords).GetEnumerator();
-    }
-
-    // Implementation of non-generic IEnumerable
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    public List<string> CorrectWords { get; }
+    public List<string> IncorrectWords { get; }
 
     public List<string> GetMixedWords()
     {
         var random = new Random();
-        return _words.CorrectWords.Concat(_words.IncorrectWords).OrderBy(x => random.Next()).ToList();
+        return CorrectWords.Concat(IncorrectWords).OrderBy(x => random.Next()).ToList();
     }
 
     public static (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(
@@ -58,8 +34,8 @@ public class Flashcard : IEnumerable<string>
         Guid flashcardId,
         FlashcardGameDatabaseContext databaseContext)
     {
-        var correctWords = databaseContext.GetCorrectWordsById(flashcardId);
-        var incorrectWords = databaseContext.GetIncorrectWordsById(flashcardId);
+        var correctWords = GetCorrectWordsById(databaseContext, flashcardId);
+        var incorrectWords = GetIncorrectWordsById(databaseContext, flashcardId);
 
         var correctMatches = correctWords.Intersect(userCorrect).Count();
         var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
@@ -73,10 +49,47 @@ public class Flashcard : IEnumerable<string>
         var flashcardEntity = new FlashcardEntity
         {
             Id = Id,
-            CorrectWords = string.Join(",", _words.CorrectWords),
-            IncorrectWords = string.Join(",", _words.IncorrectWords)
+            CorrectWords = string.Join(",", CorrectWords),
+            IncorrectWords = string.Join(",", IncorrectWords)
         };
         databaseContext.Add(flashcardEntity);
         databaseContext.SaveChanges();
+    }
+    
+    public static List<string> GetSelectedCorrectWords( FlashcardGameDatabaseContext databaseContext, int count)
+    {
+        return databaseContext.CorrectWords
+            .OrderByDescending(w => w.Frequency)
+            .Skip((int)(databaseContext.CorrectWords.Count() * 0.25))
+            .OrderBy(w => Guid.NewGuid())
+            .Take(count)
+            .Select(w => w.Word)
+            .ToList();
+    }
+
+    public static List<string> GetSelectedIncorrectWords( FlashcardGameDatabaseContext databaseContext, int count)
+    {
+        return databaseContext.IncorrectWords
+            .OrderByDescending(w => w.Frequency)
+            .Skip((int)(databaseContext.IncorrectWords.Count() * 0.25))
+            .OrderBy(w => Guid.NewGuid())
+            .Take(count)
+            .Select(w => w.Word)
+            .ToList();
+    }
+
+    
+    public static List<string> GetCorrectWordsById( FlashcardGameDatabaseContext databaseContext, Guid id)
+    {
+        var flashcardEntity = databaseContext.Flashcards.Find(id);
+        if (flashcardEntity == null) throw new Exception("Flashcard not found");
+        return flashcardEntity.CorrectWords.Split(",").ToList();
+    }
+
+    public static List<string> GetIncorrectWordsById(FlashcardGameDatabaseContext databaseContext, Guid id)
+    {
+        var flashcardEntity = databaseContext.Flashcards.Find(id);
+        if (flashcardEntity == null) throw new Exception("Flashcard not found");
+        return flashcardEntity.IncorrectWords.Split(",").ToList();
     }
 }

@@ -32,7 +32,7 @@ public class FlashcardTests
         var flashcardId = flashcardEntity.Id;
 
         // Act
-        var correctWords = context.GetCorrectWordsById(flashcardId);
+        var correctWords = Flashcard.GetCorrectWordsById(context, flashcardId);
 
         // Assert
         Assert.Equal(new List<string> { "apple", "banana", "orange" }, correctWords);
@@ -47,7 +47,7 @@ public class FlashcardTests
         var flashcardId = flashcardEntity.Id;
 
         // Act
-        var incorrectWords = context.GetIncorrectWordsById(flashcardId);
+        var incorrectWords = Flashcard.GetIncorrectWordsById(context, flashcardId);
 
         // Assert
         Assert.Equal(new List<string> { "carrot", "potato", "tomato" }, incorrectWords);
