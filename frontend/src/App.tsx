@@ -3,9 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './HomePage';
 import GamePage from './GamePage';
 import LeaderboardPage from './LeaderboardPage';
+import ResultsPage from "./ResultsPage";
+import LoginPage from './LoginPage';
 import './App.css';
 import  './ResultsPage';
-import ResultsPage from "./ResultsPage";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: '/results',
         element: <ResultsPage />,
+    },
+    {
+        path: '/login',
+        element: <LoginPage />,
     }
 ]);
 
