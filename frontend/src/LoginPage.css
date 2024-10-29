@@ -1,4 +1,4 @@
-.login-page {
+.login-page, .signup-page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,7 +33,7 @@
     width: 100%;
 }
 
-.login-container, .info-container {
+.login-container, .info-container, .signup-container {
     background-color: white;
     padding: 40px;
     border-radius: 12px;
@@ -87,7 +87,7 @@
     text-align: left;
 }
 
-.login-button {
+.login-button, .signup-button {
     background-color: #6a11cb;
     color: white;
     height: 48px;
@@ -100,12 +100,12 @@
     box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
 }
 
-.login-button:hover {
+.login-button:hover, .signup-button:hover {
     background-color: #5a0fb8;
     transform: translateY(-2px);
 }
 
-.login-button:active {
+.login-button:active, .signup-button:active {
     background-color: #4a0f9e;
 }
 
