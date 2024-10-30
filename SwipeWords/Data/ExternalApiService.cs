@@ -1,13 +1,9 @@
-
 namespace SwipeWords.Data;
 
 public class ExternalApiService
 {
     private const string FileUrl = "https://www.dcs.bbk.ac.uk/~ROGER/wikipedia.dat";
-
     private const int TotalLines = 4473; // Known total number of lines
-                                         // I know that it's not the best approach
-                                         // but apparently, there is no api for this purposes
 
     public async Task<List<string>> GetCorrectWordsAsync(int count)
     {
@@ -37,10 +33,22 @@ public class ExternalApiService
             using var reader = new StreamReader(stream);
 
             var currentLine = 0;
+            bool wrappedAround = false;
 
-            while (await reader.ReadLineAsync() is { } line)
+            while (wordSet.Count < count)
             {
-                if (currentLine >= startLine)
+                if (currentLine == TotalLines)
+                {
+                    currentLine = 0;
+                    wrappedAround = true;
+                    reader.DiscardBufferedData();
+                    reader.BaseStream.Seek(0, SeekOrigin.Begin);
+                }
+
+                var line = await reader.ReadLineAsync();
+                if (line == null) break;
+
+                if (currentLine >= startLine || wrappedAround)
                 {
                     var isCorrect = line.StartsWith("$");
                     var word = isCorrect ? line.Substring(1) : line;
