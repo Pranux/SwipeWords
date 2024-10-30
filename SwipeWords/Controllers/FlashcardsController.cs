@@ -19,11 +19,13 @@ public class FlashcardsController : ControllerBase
 
     // GET: api/Flashcards/GetFlashcards?wordCount=5
     [HttpGet("GetFlashcards")]
-    public IActionResult GetFlashcards(int wordCount = 5)
+    public async Task<IActionResult> GetFlashcards(int wordCount = 5)
     {
         try
         {
-            var flashcard = new Flashcard(_context, wordCount);
+            var apiService = new ExternalApiService();
+            var flashcard = new Flashcard();
+            await flashcard.InitializeAsync(_context, apiService, wordCount);
             var mixedWords = flashcard.GetMixedWords();
             return Ok(new { flashcardId = flashcard.Id, mixedWords });
         }

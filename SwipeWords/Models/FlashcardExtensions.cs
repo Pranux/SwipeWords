@@ -4,26 +4,30 @@ namespace SwipeWords.Models;
 
 public static class FlashcardExtensions
 {
-    public static List<string> GetSelectedCorrectWords(this FlashcardGameDatabaseContext databaseContext, int count)
+    public static async Task<List<string>> GetSelectedCorrectWords(this FlashcardGameDatabaseContext databaseContext, int count, ExternalApiService apiService)
     {
-        return databaseContext.CorrectWords
-            .OrderByDescending(w => w.Frequency)
-            .Skip((int)(databaseContext.CorrectWords.Count() * 0.25))
-            .OrderBy(w => Guid.NewGuid())
-            .Take(count)
-            .Select(w => w.Word)
-            .ToList();
+        var correctWords = await apiService.GetCorrectWordsAsync(count);
+
+        foreach (var word in correctWords)
+        {
+            databaseContext.CorrectWords.Add(new CorrectWord { Word = word });
+        }
+        await databaseContext.SaveChangesAsync();
+
+        return correctWords;
     }
 
-    public static List<string> GetSelectedIncorrectWords(this FlashcardGameDatabaseContext databaseContext, int count)
+    public static async Task<List<string>> GetSelectedIncorrectWords(this FlashcardGameDatabaseContext databaseContext, int count, ExternalApiService apiService)
     {
-        return databaseContext.IncorrectWords
-            .OrderByDescending(w => w.Frequency)
-            .Skip((int)(databaseContext.IncorrectWords.Count() * 0.25))
-            .OrderBy(w => Guid.NewGuid())
-            .Take(count)
-            .Select(w => w.Word)
-            .ToList();
+        var incorrectWords = await apiService.GetIncorrectWordsAsync(count);
+
+        foreach (var word in incorrectWords)
+        {
+            databaseContext.IncorrectWords.Add(new IncorrectWord { Word = word });
+        }
+        await databaseContext.SaveChangesAsync();
+
+        return incorrectWords;
     }
 
     public static List<string> GetCorrectWordsById(this FlashcardGameDatabaseContext databaseContext, Guid id)
