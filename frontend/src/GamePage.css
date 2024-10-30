@@ -8,10 +8,28 @@
     background-color: #f4f4f4;
 }
 
+.flashcard-text {
+    pointer-events: none; 
+    user-select: none; 
+    margin: 0; 
+}
+
+.flashcard-placeholder {
+    width: 350px; 
+    height: 400px; 
+    background-color: #e0dbdbd0; 
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    position: absolute; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease; 
+    margin-bottom: 125px;
+}
+
 .flashcard {
-    width: 300px;
-    height: 200px;
-    background-color: #fff;
+    width: 350px;
+    height: 400px;
     border: 2px solid #333;
     display: flex;
     justify-content: center;
@@ -24,25 +42,6 @@
 .buttons {
     display: flex;
     gap: 20px;
-}
-
-.correct-button, .incorrect-button {
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.correct-button:hover {
-    background-color: #2ecc71;
-}
-
-.incorrect-button:hover {
-    background-color: #e74c3c;
 }
 
 .end-now-button {
