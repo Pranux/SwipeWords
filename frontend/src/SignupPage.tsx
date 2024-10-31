@@ -43,36 +43,38 @@ const SignupPage = () => {
 
     return (
         <div className="signup-page">
-            <div className="signup-container">
-                <div className="title-container">
-                    <h2>Sign Up</h2>
+            <div className="content-wrapper">
+                <div className="signup-container">
+                    <div className="title-container">
+                        <h2>Sign Up</h2>
+                    </div>
+                    <input
+                        value={username}
+                        placeholder="Enter your username here"
+                        onChange={(usernameStr) => setUsername(usernameStr.target.value)}
+                        className="input-box"
+                    />
+                    <label className="errorLabel">{usernameError}</label>
+                    <input
+                        value={password}
+                        placeholder="Enter your password here"
+                        type="password"
+                        onChange={(passStr) => setPassword(passStr.target.value)}
+                        className="input-box"
+                    />
+                    <label className="errorLabel">{passwordError}</label>
+                    <input
+                        value={repeatPassword}
+                        placeholder="Repeat your password here"
+                        type="password"
+                        onChange={(passStr) => setRepeatPassword(passStr.target.value)}
+                        className="input-box"
+                    />
+                    <label className="errorLabel">{repeatPasswordError}</label>
+                    <button className="signup-button" onClick={() => handleAnswer(true)}>
+                        Sign Up
+                    </button>
                 </div>
-                <input
-                    value={username}
-                    placeholder="Enter your username here"
-                    onChange={(usernameStr) => setUsername(usernameStr.target.value)}
-                    className="input-box"
-                />
-                <label className="errorLabel">{usernameError}</label>
-                <input
-                    value={password}
-                    placeholder="Enter your password here"
-                    type="password"
-                    onChange={(passStr) => setPassword(passStr.target.value)}
-                    className="input-box"
-                />
-                <label className="errorLabel">{passwordError}</label>
-                <input
-                    value={repeatPassword}
-                    placeholder="Repeat your password here"
-                    type="password"
-                    onChange={(passStr) => setRepeatPassword(passStr.target.value)}
-                    className="input-box"
-                />
-                <label className="errorLabel">{repeatPasswordError}</label>
-                <button className="signup-button" onClick={() => handleAnswer(true)}>
-                    Sign Up
-                </button>
             </div>
         </div>);
 };
