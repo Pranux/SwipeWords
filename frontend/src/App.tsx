@@ -5,6 +5,7 @@ import GamePage from './GamePage';
 import LeaderboardPage from './LeaderboardPage';
 import ResultsPage from "./ResultsPage";
 import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
 import './App.css';
 import  './ResultsPage';
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />,
+    },
+    {
+        path: '/signup',
+        element: <SignupPage />,
     }
 ]);
 
