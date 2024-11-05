@@ -39,4 +39,9 @@
         <_ContentIncludedByDefault Remove="test\obj\project.assets.json"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="FlashcardMigrations\" />
+      <Folder Include="UsersMigrations\" />
+    </ItemGroup>
+
 </Project>

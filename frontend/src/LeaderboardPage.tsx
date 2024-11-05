@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import './Leaderboard.css';
 
+interface LeaderboardEntry {
+    userName: string;
+    maxScore: number;
+}
+
 const Leaderboard = () => {
-    // Sample data for the leaderboard
-    const leaderboardData = [
-        { username: 'John', score: 150, date: '2024-10-01' },
-        { username: 'Jane', score: 130, date: '2024-09-30' },
-        { username: 'PlayerOne', score: 110, date: '2024-09-29' },
-        { username: 'UserTwo', score: 100, date: '2024-09-28' },
-    ];
+    const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+
+    useEffect(() => {
+        const fetchLeaderboard = async () => {
+            try {
+                const response = await fetch('https://localhost:44399/api/Leaderboard/GetLeaderboard?top=10', {
+                    method: 'GET',
+                    headers: {
+                        'accept': '*/*'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+
+                const data: LeaderboardEntry[] = await response.json();
+                setLeaderboardData(data);
+            } catch (error) {
+                console.error('Error fetching leaderboard data:', error);
+            }
+        };
+
+        fetchLeaderboard();
+    }, []);
 
     return (
         <div className="leaderboard-page">
@@ -22,15 +45,13 @@ const Leaderboard = () => {
                     <tr>
                         <th>Username</th>
                         <th>Score</th>
-                        <th>Date</th>
                     </tr>
                     </thead>
                     <tbody>
                     {leaderboardData.map((entry, index) => (
                         <tr key={index}>
-                            <td>{entry.username}</td>
-                            <td>{entry.score}</td>
-                            <td>{entry.date}</td>
+                            <td>{entry.userName}</td>
+                            <td>{entry.maxScore}</td>
                         </tr>
                     ))}
                     </tbody>
