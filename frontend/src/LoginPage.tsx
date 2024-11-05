@@ -1,38 +1,58 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import './LoginPage.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
 
 const LoginPage = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [usernameError, setUsernameError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
-    const [loggedIn, setLoggedIn] = useState<boolean>(false)
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const navigate = useNavigate();
-    
-    const checkLogin = (username : string, password : string) => {
-        return true;
-    }
-    
-    const handleAnswer = (isLoggedIn : boolean) => {
-        
+
+    const handleAnswer = async (isLoggedIn: boolean) => {
         setPasswordError('');
         setUsernameError('');
-        if('' === password) {
+
+        if ('' === password) {
             setPasswordError('Please enter a password');
         }
-        if('' === username) {
+        if ('' === username) {
             setUsernameError('Please enter a username');
         }
-        if('' === password || '' === username) {
+        if ('' === password || '' === username) {
             return;
         }
-        
-        if(checkLogin(username, password) === true){
+
+        try {
+            const response = await fetch('https://localhost:44399/api/User/Login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': '*/*'
+                },
+                body: JSON.stringify({ name: username, password: password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            const token = data.token;
+            localStorage.setItem('jwtToken', token);
+
+            const decodedToken: any = jwtDecode(token);
+            const usernameFromToken = decodedToken.name;
+
             setLoggedIn(isLoggedIn);
-            navigate('/');
+            navigate('/', { state: { username: usernameFromToken } });
+        } catch (error) {
+            console.error('There was a problem with the login request:', error);
         }
-    }
+    };
 
     return (
         <div className="login-page">
@@ -80,7 +100,8 @@ const LoginPage = () => {
                     Don't have an account? <a href="/signup">Sign Up</a>
                 </p>
             </div>
-        </div>);
+        </div>
+    );
 };
 
 export default LoginPage;

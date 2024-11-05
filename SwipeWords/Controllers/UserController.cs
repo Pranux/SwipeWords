@@ -79,7 +79,6 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("CheckUsernameAvailability")]
-    [Authorize]
     public async Task<IActionResult> CheckUsernameAvailability([FromQuery] string username)
     {
         var isTaken = await _context.Users.AnyAsync(u => u.Name == username);

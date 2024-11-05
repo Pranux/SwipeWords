@@ -10,9 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44514f03-0c6c-413c-b9d0-2a08d4324902" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/LeaderboardController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SwipeWords.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SwipeWords.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924070119_Initial.Designer.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924070119_Initial.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924180329_SeededCorrectAndincorrectWordsWithJson.Designer.cs" beforeDir="false" />
@@ -22,9 +21,17 @@
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241009214727_AddedFlashcardStorage.Designer.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241009214727_AddedFlashcardStorage.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FlashcardMigrations/FlashcardGameDatabaseContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SwipeWords.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SwipeWords.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UsersMigrations/20240924070147_Initial.Designer.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UsersMigrations/20240924070147_Initial.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UsersMigrations/UsersDatabaseContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/LeaderboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/LeaderboardPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/ResultsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/ResultsPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/SignupPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SignupPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
