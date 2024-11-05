@@ -10,22 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44514f03-0c6c-413c-b9d0-2a08d4324902" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Extensions/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/PasswordHasher.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Models/TokenProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controllers/FlashcardsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/FlashcardsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Flashcard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Flashcard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/FlashcardExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Extensions/FlashcardExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SwipeWords.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SwipeWords.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/FlashcardTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/test/FlashcardTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/GamePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/GamePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/ResultsPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/ResultsPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/LeaderboardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SwipeWords.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SwipeWords.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Leaderboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Leaderboard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924070119_Initial.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924070119_Initial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924180329_SeededCorrectAndincorrectWordsWithJson.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20240924180329_SeededCorrectAndincorrectWordsWithJson.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241008215936_added flashcard entity class.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241008215936_added flashcard entity class.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241009214727_AddedFlashcardStorage.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/20241009214727_AddedFlashcardStorage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlashcardMigrations/FlashcardGameDatabaseContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UsersMigrations/20240924070147_Initial.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UsersMigrations/20240924070147_Initial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UsersMigrations/UsersDatabaseContextModelSnapshot.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +156,7 @@
       <workItem from="1730065651476" duration="108000" />
       <workItem from="1730144694447" duration="1876000" />
       <workItem from="1730716975485" duration="3076000" />
-      <workItem from="1730788349011" duration="2234000" />
+      <workItem from="1730788349011" duration="8823000" />
     </task>
     <servers />
   </component>
