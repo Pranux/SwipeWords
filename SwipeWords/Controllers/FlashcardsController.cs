@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SwipeWords.Data;
 using SwipeWords.Models;
+using SwipeWords.Services;
 
 namespace SwipeWords.Controllers;
 
@@ -8,12 +9,14 @@ namespace SwipeWords.Controllers;
 [Route("api/[controller]")]
 public class FlashcardsController : ControllerBase
 {
-    private readonly FlashcardGameDatabaseContext _context;
+    private readonly FlashcardService _flashcardService;
+    private readonly FlashcardGameDatabaseContext _dbContext;
     private readonly ILogger<FlashcardsController> _logger;
 
-    public FlashcardsController(FlashcardGameDatabaseContext context, ILogger<FlashcardsController> logger)
+    public FlashcardsController(FlashcardService flashcardService, FlashcardGameDatabaseContext dbContext, ILogger<FlashcardsController> logger)
     {
-        _context = context;
+        _dbContext = dbContext;
+        _flashcardService = flashcardService;
         _logger = logger;
     }
 
@@ -23,11 +26,9 @@ public class FlashcardsController : ControllerBase
     {
         try
         {
-            var apiService = new ExternalApiService();
-            var flashcard = new Flashcard();
-            await flashcard.InitializeAsync(_context, apiService, wordCount);
-            var mixedWords = flashcard.GetMixedWords();
-            return Ok(new { flashcardId = flashcard.Id, mixedWords });
+            await _flashcardService.InitializeAsync(wordCount);
+            var mixedWords = _flashcardService.GetMixedWords();
+            return Ok(new { flashcardId = _flashcardService.Id, mixedWords });
         }
         catch (Exception ex)
         {
@@ -42,16 +43,14 @@ public class FlashcardsController : ControllerBase
     {
         try
         {
-            var userCorrectList = request.UserCorrect.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
-            var userIncorrectList = request.UserIncorrect.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
+            var userCorrectList = request.UserCorrect.Split(',').ToList();
+            var userIncorrectList = request.UserIncorrect.Split(',').ToList();
 
-            var (score, correctWords, incorrectWords) = Flashcard.CalculateScore(
+            var (score, correctWords, incorrectWords) = FlashcardService.CalculateScore(
                 userCorrectList,
                 userIncorrectList,
                 request.FlashcardId,
-                _context);
+                _dbContext);
 
             return Ok(new { score, correctWords, incorrectWords });
         }
