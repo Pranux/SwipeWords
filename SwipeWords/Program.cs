@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using SwipeWords.Data;
+using SwipeWords.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("FlashcardGameDbConnectionString");
 
 // Add services to the container.
+builder.Services.AddScoped<FlashcardService>();
+builder.Services.AddSingleton<ExternalApiService>();
+builder.Services.AddScoped<FlashcardGameDatabaseContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();

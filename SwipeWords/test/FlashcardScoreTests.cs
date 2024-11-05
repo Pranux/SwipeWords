@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SwipeWords.Data;
 using SwipeWords.Models;
+using SwipeWords.Services;
 using Xunit;
 
 public class FlashcardScoreTests
@@ -36,7 +37,7 @@ public class FlashcardScoreTests
 
         // Act
         var (score, correctWords, incorrectWords) =
-            Flashcard.CalculateScore(userCorrect, userIncorrect, flashcardId, context);
+            FlashcardService.CalculateScore(userCorrect, userIncorrect, flashcardId, context);
 
         // Assert
         Assert.Equal(3, score);
