@@ -4,11 +4,8 @@ namespace SwipeWords.Data;
 
 public record User
 {
-    [Key] public int UserId { get; set; }
-
+    [Key] public Guid UserId { get; set; }
     public string Name { get; set; }
-
-    public string Email { get; set; }
-
-    public DateTime CreationDate { get; set; }
+    public string PasswordHash { get; set; }
+    public string PasswordSalt { get; set; }
 }

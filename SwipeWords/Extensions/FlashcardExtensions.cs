@@ -1,6 +1,6 @@
 using SwipeWords.Data;
 
-namespace SwipeWords.Models;
+namespace SwipeWords.Extensions;
 
 public static class FlashcardExtensions
 {

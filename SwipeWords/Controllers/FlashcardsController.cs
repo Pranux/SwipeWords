@@ -36,7 +36,7 @@ public class FlashcardsController : ControllerBase
         }
     }
 
-    // POST: api/Flashcards/CalculateScore
+    // POST: api/Flashcards/CalculateScore`
     [HttpPost("CalculateScore")]
     public IActionResult CalculateScore([FromBody] ScoreRequest request)
     {
