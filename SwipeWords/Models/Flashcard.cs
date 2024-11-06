@@ -10,13 +10,13 @@ namespace SwipeWords.Models
 
         public Guid Id { get; } = Guid.NewGuid();
 
-        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5)
+        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
         {
             var random = new Random();
             var numCorrectWords = random.Next((int)(wordCount * 0.25), (int)(wordCount * 0.75));
 
-            var correctWords = await databaseContext.GetSelectedCorrectWords(numCorrectWords, apiService);
-            var incorrectWords = await databaseContext.GetSelectedIncorrectWords(wordCount - numCorrectWords, apiService);
+            var correctWords = await apiService.GetCorrectWordsAsync(numCorrectWords, useScalingMode, difficulty);
+            var incorrectWords = await apiService.GetIncorrectWordsAsync(wordCount - numCorrectWords, useScalingMode, difficulty);
 
             _words = new Words(correctWords, incorrectWords);
 
@@ -48,6 +48,13 @@ namespace SwipeWords.Models
             var correctMatches = correctWords.Intersect(userCorrect).Count();
             var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
             var score = correctMatches + incorrectMatches;
+
+            var flashcardToDelete = databaseContext.Flashcards.Find(flashcardId);
+            if (flashcardToDelete != null)
+            {
+                databaseContext.Flashcards.Remove(flashcardToDelete);
+                databaseContext.SaveChanges();
+            }
 
             return (score, correctWords, incorrectWords);
         }

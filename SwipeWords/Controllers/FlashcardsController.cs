@@ -19,13 +19,13 @@ public class FlashcardsController : ControllerBase
 
     // GET: api/Flashcards/GetFlashcards?wordCount=5
     [HttpGet("GetFlashcards")]
-    public async Task<IActionResult> GetFlashcards(int wordCount = 5)
+    public async Task<IActionResult> GetFlashcards(int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
     {
         try
         {
             var apiService = new ExternalApiService();
             var flashcard = new Flashcard();
-            await flashcard.InitializeAsync(_context, apiService, wordCount);
+            await flashcard.InitializeAsync(_context, apiService, wordCount, useScalingMode, difficulty);
             var mixedWords = flashcard.GetMixedWords();
             return Ok(new { flashcardId = flashcard.Id, mixedWords });
         }
@@ -36,20 +36,15 @@ public class FlashcardsController : ControllerBase
         }
     }
 
-    // POST: api/Flashcards/CalculateScore`
+    // POST: api/Flashcards/CalculateScore
     [HttpPost("CalculateScore")]
     public IActionResult CalculateScore([FromBody] ScoreRequest request)
     {
         try
         {
-            var userCorrectList = request.UserCorrect.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
-            var userIncorrectList = request.UserIncorrect.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .ToList();
-
             var (score, correctWords, incorrectWords) = Flashcard.CalculateScore(
-                userCorrectList,
-                userIncorrectList,
+                request.UserCorrect,
+                request.UserIncorrect,
                 request.FlashcardId,
                 _context);
 
@@ -65,7 +60,7 @@ public class FlashcardsController : ControllerBase
 
 public class ScoreRequest
 {
-    public string UserCorrect { get; set; } = string.Empty;
-    public string UserIncorrect { get; set; } = string.Empty;
+    public List<string> UserCorrect { get; set; } = [];
+    public List<string> UserIncorrect { get; set; } = [];
     public Guid FlashcardId { get; set; }
 }
