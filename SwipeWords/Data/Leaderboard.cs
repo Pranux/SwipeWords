@@ -11,4 +11,6 @@ public class Leaderboard
 
     [ForeignKey(nameof(UserId))] public Guid UserId { get; set; }
     
+    
+    
 }

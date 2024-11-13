@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using SwipeWord.Extensions;
 using SwipeWords.Data;
 using SwipeWords.Models;
+using SwipeWords.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddSwaggerGenWithAuth();
 builder.Services.AddControllers();
 builder.Services.AddSingleton<TokenProvider>();
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<FlashcardService>();
+builder.Services.AddScoped<LeaderboardService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {

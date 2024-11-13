@@ -8,4 +8,5 @@ public record User
     public string Name { get; set; }
     public string PasswordHash { get; set; }
     public string PasswordSalt { get; set; }
+    
 }

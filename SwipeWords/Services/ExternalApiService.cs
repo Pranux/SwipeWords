@@ -1,4 +1,4 @@
-namespace SwipeWords.Data
+namespace SwipeWords.Services
 {
     public class ExternalApiService
     {

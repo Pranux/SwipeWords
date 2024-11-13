@@ -1,127 +1,113 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SwipeWords.Data;
+using SwipeWords.Services;
 using SwipeWords.Models;
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using SwipeWords.Data;
 
-namespace SwipeWords.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+namespace SwipeWords.Controllers
 {
-    private readonly UsersDatabaseContext _context;
-    private readonly TokenProvider _tokenProvider;
-
-    public UserController(UsersDatabaseContext context, TokenProvider tokenProvider)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
-        _context = context;
-        _tokenProvider = tokenProvider;
-    }
+        private readonly UserService _userService;
+        private readonly TokenProvider _tokenProvider;
+        private readonly ILogger<UserController> _logger;
 
-    [HttpPost("Register")]
-    public async Task<IActionResult> PostUser([FromBody] UserDto userDto)
-    {
-        if (userDto == null)
+        public UserController(UserService userService, TokenProvider tokenProvider, ILogger<UserController> logger)
         {
-            return BadRequest();
+            _userService = userService;
+            _tokenProvider = tokenProvider;
+            _logger = logger;
         }
 
-        if (!await IsUsernameTaken(userDto.Name))
+        [HttpPost("Register")]
+        public async Task<IActionResult> PostUser([FromBody] UserDto userDto)
         {
-            return Conflict(new { message = "Username is taken" });
+            if (userDto == null)
+            {
+                return BadRequest();
+            }
+
+            if (await _userService.IsUsernameTakenAsync(userDto.Name))
+            {
+                return Conflict(new { message = "Username is taken" });
+            }
+
+            var salt = PasswordHasher.GenerateSalt();
+            var user = new User
+            {
+                UserId = Guid.NewGuid(),
+                Name = userDto.Name,
+                PasswordSalt = salt,
+                PasswordHash = PasswordHasher.HashPassword(userDto.Password, salt)
+            };
+
+            // Call the TokenProvider to create a token
+            var token = _tokenProvider.Create(user);
+
+            await _userService.AddUserAsync(user);
+
+            return CreatedAtAction(nameof(PostUser), new { token });
         }
 
-        var salt = PasswordHasher.GenerateSalt();
-        var user = new User
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] UserDto userDto)
         {
-            UserId = Guid.NewGuid(),
-            Name = userDto.Name,
-            PasswordSalt = salt,
-            PasswordHash = PasswordHasher.HashPassword(userDto.Password, salt)
-        };
+            if (userDto == null)
+            {
+                return BadRequest();
+            }
 
-        // Call the TokenProvider to create a token
-        var token = _tokenProvider.Create(user);
+            var user = await _userService.GetUserByNameAsync(userDto.Name);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-        
+            var storedSalt = user.PasswordSalt;
+            var storedHash = user.PasswordHash;
+            if (!PasswordHasher.VerifyPassword(userDto.Password, storedHash, storedSalt))
+            {
+                return Unauthorized();
+            }
 
-        return CreatedAtAction(nameof(PostUser),  new { token });
-    }
+            // Call the TokenProvider to create a token
+            var token = _tokenProvider.Create(user);
 
-    [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] UserDto userDto)
-    {
-        if (userDto == null)
-        {
-            return BadRequest();
+            return Ok(new { token });
         }
 
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == userDto.Name);
-        if (user == null)
+        [HttpGet("CheckUsernameAvailability")]
+        public async Task<IActionResult> CheckUsernameAvailability([FromQuery] string username)
         {
-            return NotFound();
+            var isTaken = await _userService.IsUsernameTakenAsync(username);
+            return Ok(new { isAvailable = !isTaken });
         }
 
-        var storedSalt = await GetStoredSalt(userDto.Name);
-        var storedHash = await GetStoredHash(userDto.Name);
-        if (!PasswordHasher.VerifyPassword(userDto.Password, storedHash, storedSalt))
+        [HttpGet("{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetUserById(Guid id)
         {
-            return Unauthorized();
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            var userDto = new ReturnUserDto
+            {
+                UserId = user.UserId,
+                Name = user.Name
+            };
+
+            return Ok(userDto);
         }
-
-        // Call the TokenProvider to create a token
-        var token = _tokenProvider.Create(user);
-
-        return Ok(new {token});
-    }
-
-    [HttpGet("CheckUsernameAvailability")]
-    public async Task<IActionResult> CheckUsernameAvailability([FromQuery] string username)
-    {
-        var isTaken = await _context.Users.AnyAsync(u => u.Name == username);
-        return Ok(new { isAvailable = !isTaken });
-    }
-
-    [HttpGet("{id}")]
-    [Authorize]
-    public async Task<IActionResult> GetUserById(Guid id)
-    {
-        var user = await _context.Users.FindAsync(id);
-        if (user == null)
-        {
-            return NotFound(new { message = "User not found" });
-        }
-
-        var userDto = new ReturnUserDto
-        {
-            UserId = user.UserId,
-            Name = user.Name
-        };
-
-        return Ok(userDto);
-    }
-
-    private async Task<string> GetStoredSalt(string username)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == username);
-        return user?.PasswordSalt;
-    }
-
-    private async Task<string> GetStoredHash(string username)
-    {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == username);
-        return user?.PasswordHash;
-    }
-
-    private async Task<bool> IsUsernameTaken(string username)
-    {
-        return !await _context.Users.AnyAsync(u => u.Name == username);
     }
 }
-
 public class UserDto
 {
     public string Name { get; set; }

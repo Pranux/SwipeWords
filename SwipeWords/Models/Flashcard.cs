@@ -1,6 +1,7 @@
 using System.Collections;
 using SwipeWords.Data;
 using SwipeWords.Extensions;
+using SwipeWords.Services;
 
 namespace SwipeWords.Models
 {

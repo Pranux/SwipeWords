@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SwipeWords.Data;
+using SwipeWords.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace SwipeWords.Controllers
 {
@@ -11,61 +11,38 @@ namespace SwipeWords.Controllers
     [Route("api/[controller]")]
     public class LeaderboardController : ControllerBase
     {
-        private readonly UsersDatabaseContext _context;
+        private readonly LeaderboardService _leaderboardService;
+        private readonly ILogger<LeaderboardController> _logger;
 
-        public LeaderboardController(UsersDatabaseContext context)
+        public LeaderboardController(LeaderboardService leaderboardService, ILogger<LeaderboardController> logger)
         {
-            _context = context;
+            _leaderboardService = leaderboardService;
+            _logger = logger;
         }
-        
+
         [HttpPost("AddOrUpdateScore")]
         public async Task<IActionResult> AddOrUpdateScore(string userName, int score)
         {
-            var leaderboardEntry = await _context.Leaderboards
-                .FirstOrDefaultAsync(lb => lb.UserName == userName);
+            var leaderboardEntry = await _leaderboardService.AddOrUpdateScoreAsync(userName, score);
 
-            if (leaderboardEntry != null)
+            if (leaderboardEntry == null)
             {
-                if (score > leaderboardEntry.MaxScore)
-                {
-                    leaderboardEntry.MaxScore = score;
-                    await _context.SaveChangesAsync();
-                }
-            }
-            else
-            {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Name == userName);
-                if (user == null)
-                {
-                    return NotFound(new { message = "User not found." });
-                }
-
-                leaderboardEntry = new Leaderboard
-                {
-                    UserName = userName,
-                    UserId = user.UserId,
-                    MaxScore = score
-                };
-
-                _context.Leaderboards.Add(leaderboardEntry);
-                await _context.SaveChangesAsync();
+                return NotFound(new { message = "User not found." });
             }
 
             return Ok(new { message = "Score added or updated successfully." });
         }
-        
+
         [HttpGet("GetLeaderboard")]
         public async Task<IActionResult> GetLeaderboard(int top = 10)
         {
-            var leaderboard = await _context.Leaderboards
-                .OrderByDescending(lb => lb.MaxScore)
-                .Take(top)
+            var leaderboard = (await _leaderboardService.GetLeaderboardAsync(top))
                 .Select(lb => new
                 {
                     lb.UserName,
                     lb.MaxScore
                 })
-                .ToListAsync();
+                .ToList();
 
             return Ok(leaderboard);
         }
