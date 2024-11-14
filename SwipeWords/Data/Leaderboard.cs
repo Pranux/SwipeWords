@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SwipeWords.Data;
 
-public record Leaderboard
+public class Leaderboard
 {
-    [Key] public int Id { get; set; }
+    [Key] public string UserName { get; set; }
 
     public int MaxScore { get; set; }
-    public int RankPosition { get; set; }
 
-    [ForeignKey(nameof(UserId))] public int UserId { get; set; }
-
-    public User User { get; set; }
+    [ForeignKey(nameof(UserId))] public Guid UserId { get; set; }
+    
+    
+    
 }

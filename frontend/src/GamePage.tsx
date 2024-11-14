@@ -22,7 +22,7 @@ const GamePage = () => {
 
         const fetchFlashcards = async () => {
             try {
-                const response = await fetch(`https://localhost:44398/api/Flashcards/GetFlashcards?wordCount=${wordCount}`);
+                const response = await fetch(`https://localhost:44399/api/Flashcards/GetFlashcards?wordCount=${wordCount}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

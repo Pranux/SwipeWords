@@ -43,7 +43,7 @@ namespace SwipeWords.UsersMigrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Leaderboards");
+                    b.ToTable("Leaderboards", (string)null);
                 });
 
             modelBuilder.Entity("SwipeWords.Data.User", b =>
@@ -67,7 +67,7 @@ namespace SwipeWords.UsersMigrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SwipeWords.Data.Leaderboard", b =>

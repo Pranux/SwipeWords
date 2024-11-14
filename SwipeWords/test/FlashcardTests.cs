@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SwipeWords.Data;
+using SwipeWords.Extensions;
 using SwipeWords.Models;
 using Xunit;
 

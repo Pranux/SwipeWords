@@ -7,9 +7,11 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <RootNamespace>SwipeWords</RootNamespace>
         <AssemblyName>SwipeWords</AssemblyName>
+        <UserSecretsId>b4e7a219-1910-4b05-ab0e-d88043788c44</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.8"/>
@@ -35,6 +37,11 @@
         <_ContentIncludedByDefault Remove="test\obj\Debug\net8.0\FlashcardTests.sourcelink.json"/>
         <_ContentIncludedByDefault Remove="test\obj\FlashcardTests.csproj.nuget.dgspec.json"/>
         <_ContentIncludedByDefault Remove="test\obj\project.assets.json"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="FlashcardMigrations\" />
+      <Folder Include="UsersMigrations\" />
     </ItemGroup>
 
 </Project>

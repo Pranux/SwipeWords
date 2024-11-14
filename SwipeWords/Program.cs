@@ -1,14 +1,38 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using SwipeWord.Extensions;
 using SwipeWords.Data;
+using SwipeWords.Models;
+using SwipeWords.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("FlashcardGameDbConnectionString");
+var flashcardConnectionString = builder.Configuration.GetConnectionString("FlashcardGameDbConnectionString");
+var userConnectionString = builder.Configuration.GetConnectionString("UserDbConnectionString");
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenWithAuth();
 builder.Services.AddControllers();
+builder.Services.AddSingleton<TokenProvider>();
+builder.Services.AddAuthorization();
+builder.Services.AddScoped<FlashcardService>();
+builder.Services.AddScoped<LeaderboardService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ClockSkew = TimeSpan.Zero
+        };
+    });
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", builder =>
@@ -20,7 +44,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<FlashcardGameDatabaseContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(flashcardConnectionString));
+
+builder.Services.AddDbContext<UsersDatabaseContext>(options =>
+    options.UseSqlServer(userConnectionString));
 
 // Configure logging
 builder.Logging.ClearProviders();
@@ -39,6 +66,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("AllowAllOrigins");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

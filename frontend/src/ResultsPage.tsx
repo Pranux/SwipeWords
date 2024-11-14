@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import './ResultsPage.css';
+import { jwtDecode } from "jwt-decode";
+
 
 interface Result {
     word: string;
@@ -32,7 +34,7 @@ const ResultsPage = () => {
                     userIncorrect,
                 });
 
-                const response = await fetch('https://localhost:44398/api/Flashcards/CalculateScore', {
+                const response = await fetch('https://localhost:44399/api/Flashcards/CalculateScore', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -53,6 +55,22 @@ const ResultsPage = () => {
                 setScore(data.score);
                 setCorrectWords(data.correctWords);
                 setIncorrectWords(data.incorrectWords);
+
+                // Retrieve the username from the JWT token
+                const token = localStorage.getItem('jwtToken');
+                if (token) {
+                    const decodedToken: any = jwtDecode(token);
+                    const username = decodedToken.name;
+
+                    // Register the score in the leaderboard
+                    await fetch(`https://localhost:44399/api/Leaderboard/AddOrUpdateScore?userName=${username}&score=${data.score}`, {
+                        method: 'POST',
+                        headers: {
+                            'accept': '*/*',
+                        },
+                        body: '',
+                    });
+                }
             } catch (error) {
                 console.error('Error calculating score:', error);
             }
