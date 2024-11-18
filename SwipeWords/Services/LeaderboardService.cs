@@ -8,7 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SwipeWords.Services
 {
-    public class LeaderboardService
+    public interface ILeaderboardService
+    {
+        Task<Leaderboard> AddOrUpdateScoreAsync(string username, int score);
+        Task<IQueryable<Leaderboard>> GetLeaderboardAsync(int top);
+    }
+    
+    public class LeaderboardService : ILeaderboardService
     {
         private readonly UsersDatabaseContext _context;
         private readonly ILogger<LeaderboardService> _logger;

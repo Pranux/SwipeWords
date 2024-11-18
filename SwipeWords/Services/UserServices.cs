@@ -7,7 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SwipeWords.Services
 {
-    public class UserService
+    public interface IUserService
+    {
+        Task<bool> IsUsernameTakenAsync(string username);
+        Task<User> GetUserByNameAsync(string username);
+        Task AddUserAsync(User user);
+        Task<User> GetUserByIdAsync(Guid id);
+    }
+    
+    public class UserService : IUserService
     {
         private readonly UsersDatabaseContext _context;
         private readonly ILogger<UserService> _logger;
