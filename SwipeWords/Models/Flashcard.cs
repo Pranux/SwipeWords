@@ -36,29 +36,41 @@ namespace SwipeWords.Models
             var random = new Random();
             return _words.CorrectWords.Concat(_words.IncorrectWords).OrderBy(_ => random.Next()).ToList();
         }
+        
+        // For testing purposes
+        public List<string> GetMixedWords(Random random = null)
+        {
+            random ??= new Random();
+            return _words.CorrectWords.Concat(_words.IncorrectWords).OrderBy(_ => random.Next()).ToList();
+        }
 
+        public void SetWords(List<string> correctWords, List<string> incorrectWords)
+        {
+            _words = new Words(correctWords, incorrectWords);
+        }
+        
         public static (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(
             List<string> userCorrect,
             List<string> userIncorrect,
             Guid flashcardId,
             FlashcardGameDatabaseContext databaseContext)
-        {
-            var correctWords = databaseContext.GetCorrectWordsById(flashcardId);
-            var incorrectWords = databaseContext.GetIncorrectWordsById(flashcardId);
-
-            var correctMatches = correctWords.Intersect(userCorrect).Count();
-            var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
-            var score = correctMatches + incorrectMatches;
-
-            var flashcardToDelete = databaseContext.Flashcards.Find(flashcardId);
-            if (flashcardToDelete != null)
             {
-                databaseContext.Flashcards.Remove(flashcardToDelete);
-                databaseContext.SaveChanges();
-            }
+                var correctWords = databaseContext.GetCorrectWordsById(flashcardId);
+                var incorrectWords = databaseContext.GetIncorrectWordsById(flashcardId);
 
-            return (score, correctWords, incorrectWords);
-        }
+                var correctMatches = correctWords.Intersect(userCorrect).Count();
+                var incorrectMatches = incorrectWords.Intersect(userIncorrect).Count();
+                var score = correctMatches + incorrectMatches;
+
+                var flashcardToDelete = databaseContext.Flashcards.Find(flashcardId);
+                if (flashcardToDelete != null)
+                {
+                    databaseContext.Flashcards.Remove(flashcardToDelete);
+                    databaseContext.SaveChanges();
+                }
+
+                return (score, correctWords, incorrectWords);
+            }
 
         private void Save(FlashcardGameDatabaseContext databaseContext)
         {
@@ -71,5 +83,6 @@ namespace SwipeWords.Models
             databaseContext.Add(flashcardEntity);
             databaseContext.SaveChanges();
         }
+
     }
 }

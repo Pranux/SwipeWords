@@ -3,7 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SwipeWords.Data;
 
-public class FlashcardGameDatabaseContext : DbContext
+public interface IFlashcardGameDatabaseContext
+{
+    DbSet<FlashcardEntity> Flashcards { get; }
+}
+
+public class FlashcardGameDatabaseContext : DbContext, IFlashcardGameDatabaseContext
 {
     public FlashcardGameDatabaseContext(DbContextOptions<FlashcardGameDatabaseContext> options)
         : base(options)
@@ -13,7 +18,7 @@ public class FlashcardGameDatabaseContext : DbContext
     public DbSet<CorrectWord> CorrectWords { get; set; }
     public DbSet<IncorrectWord> IncorrectWords { get; set; }
     
-    public DbSet<FlashcardEntity> Flashcards { get; set; }
+    public virtual DbSet<FlashcardEntity> Flashcards { get; set; }
     
 }
 

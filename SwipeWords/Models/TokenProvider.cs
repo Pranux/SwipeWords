@@ -6,7 +6,12 @@ using SwipeWords.Data;
 
 namespace SwipeWords.Models;
 
-public class TokenProvider(IConfiguration configuration)
+public interface ITokenProvider
+{
+    string Create(User user);
+}
+
+public class TokenProvider(IConfiguration configuration) : ITokenProvider
 {
     public string Create(User user)
     {
