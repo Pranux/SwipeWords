@@ -1,16 +1,14 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SwipeWords.Data;
+namespace SwipeWords.MemoryRecall.Data;
 
 public class UserMemoryRecall
 {
     [Key]
-    public int Id { get; set; }
-    public Guid UserId { get; set; }
-    public int SpeedReadingTextId { get; set; }
-    public string RemovedWordPositions { get; set; }
+    public Guid MemoryRecallId { get; set; }
+    public Guid SpeedReadingTextId { get; set; }
+    public List<int> RemovedWordPositions { get; set; }
 
     [ForeignKey(nameof(SpeedReadingTextId))]
     public SpeedReadingText SpeedReadingText { get; set; }

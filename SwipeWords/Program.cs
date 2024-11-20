@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using SwipeWord.Extensions;
 using SwipeWords.Data;
 using SwipeWords.MemoryRecall.Data;
+using SwipeWords.MemoryRecall.Services;
 using SwipeWords.Models;
 using SwipeWords.Services;
 
@@ -23,6 +24,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<FlashcardService>();
 builder.Services.AddScoped<LeaderboardService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddMemoryCache(); 
+builder.Services.AddScoped<TextProcessingService>();
+builder.Services.AddScoped<MemoryRecallService>();
+builder.Services.AddHttpClient<BookRetrievalService>();
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -35,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", builder =>

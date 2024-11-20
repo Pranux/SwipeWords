@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SwipeWords.Data;
-
-public class SpeedReadingText
+namespace SwipeWords.MemoryRecall.Data
 {
-    [Key]
-    public int Id { get; set; }
-    public string Content { get; set; }
+    public class SpeedReadingText
+    {
+        [Key]
+        public Guid SpeedReadingTextId { get; set; }
+        public string Content { get; set; }
+    }
 }
