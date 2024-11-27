@@ -9,11 +9,11 @@ using SwipeWords.Data;
 
 #nullable disable
 
-namespace SwipeWords.UsersMigrations
+namespace SwipeWords.Migrations
 {
     [DbContext(typeof(UsersDatabaseContext))]
-    [Migration("20240924070147_Initial")]
-    partial class Initial
+    [Migration("20241127201932_InitialRemote")]
+    partial class InitialRemote
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,61 +27,41 @@ namespace SwipeWords.UsersMigrations
 
             modelBuilder.Entity("SwipeWords.Data.Leaderboard", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MaxScore")
                         .HasColumnType("int");
 
-                    b.Property<int>("RankPosition")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("UserName");
 
                     b.ToTable("Leaderboards");
                 });
 
             modelBuilder.Entity("SwipeWords.Data.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("SwipeWords.Data.Leaderboard", b =>
-                {
-                    b.HasOne("SwipeWords.Data.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

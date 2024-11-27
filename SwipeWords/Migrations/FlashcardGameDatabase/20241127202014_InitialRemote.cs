@@ -1,11 +1,12 @@
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SwipeWords.FlashcardMigrations
+namespace SwipeWords.Migrations.FlashcardGameDatabase
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialRemote : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +23,19 @@ namespace SwipeWords.FlashcardMigrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CorrectWords", x => x.WordId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Flashcards",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CorrectWords = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IncorrectWords = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flashcards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,6 +58,9 @@ namespace SwipeWords.FlashcardMigrations
         {
             migrationBuilder.DropTable(
                 name: "CorrectWords");
+
+            migrationBuilder.DropTable(
+                name: "Flashcards");
 
             migrationBuilder.DropTable(
                 name: "IncorrectWords");
