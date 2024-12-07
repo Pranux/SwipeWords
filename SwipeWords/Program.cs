@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SwipeWord.Extensions;
 using SwipeWords.Data;
+using SwipeWords.MemoryRecall.Data;
+using SwipeWords.MemoryRecall.Services;
 using SwipeWords.Models;
 using SwipeWords.Services;
 
@@ -11,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var flashcardConnectionString = builder.Configuration.GetConnectionString("FlashcardGameDbConnectionString");
 var userConnectionString = builder.Configuration.GetConnectionString("UserDbConnectionString");
+var memoryRecallConnectionString = builder.Configuration.GetConnectionString("MemoryRecallDbConnectionString");
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +24,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<FlashcardService>();
 builder.Services.AddScoped<LeaderboardService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddMemoryCache(); 
+builder.Services.AddScoped<TextProcessingService>();
+builder.Services.AddScoped<MemoryRecallService>();
+builder.Services.AddHttpClient<BookRetrievalService>();
+
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -33,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", builder =>
@@ -48,6 +58,9 @@ builder.Services.AddDbContext<FlashcardGameDatabaseContext>(options =>
 
 builder.Services.AddDbContext<UsersDatabaseContext>(options =>
     options.UseSqlServer(userConnectionString));
+
+builder.Services.AddDbContext<MemoryRecallDatabaseContext>(options =>
+    options.UseSqlServer(memoryRecallConnectionString));
 
 // Configure logging
 builder.Logging.ClearProviders();
