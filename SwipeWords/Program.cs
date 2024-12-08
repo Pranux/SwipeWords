@@ -19,7 +19,7 @@ var memoryRecallConnectionString = builder.Configuration.GetConnectionString("Me
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TokenProvider>();
+builder.Services.AddSingleton<ITokenProvider, TokenProvider>();
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<IFlashcardService, FlashcardService>();
 builder.Services.AddScoped<IFlashcardGameDatabaseContext, FlashcardGameDatabaseContext>();
