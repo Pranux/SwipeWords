@@ -40,9 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="FlashcardMigrations\" />
       <Folder Include="Migrations\" />
-      <Folder Include="UsersMigrations\" />
     </ItemGroup>
 
 </Project>
