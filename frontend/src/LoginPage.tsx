@@ -9,10 +9,9 @@ const LoginPage = () => {
     const [password, setPassword] = useState<string>('');
     const [usernameError, setUsernameError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleAnswer = async (isLoggedIn: boolean) => {
+    const handleAnswer = async () => {
         setPasswordError('');
         setUsernameError('');
 
@@ -46,8 +45,7 @@ const LoginPage = () => {
 
             const decodedToken: any = jwtDecode(token);
             const usernameFromToken = decodedToken.name;
-
-            setLoggedIn(isLoggedIn);
+            
             navigate('/', { state: { username: usernameFromToken } });
         } catch (error) {
             console.error('There was a problem with the login request:', error);
@@ -76,7 +74,7 @@ const LoginPage = () => {
                         className="input-box"
                     />
                     <label className="errorLabel">{passwordError}</label>
-                    <button className="login-button" onClick={() => handleAnswer(true)}>
+                    <button className="login-button" onClick={() => handleAnswer()}>
                         Log in
                     </button>
                 </div>
