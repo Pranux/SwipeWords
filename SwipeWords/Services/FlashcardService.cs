@@ -8,7 +8,7 @@ namespace SwipeWords.Services
 {
     public interface IFlashcardService
     {
-        Task<Flashcard> GetFlashcardsAsync(int wordCount, bool useScalingMode, string difficulty);
+        Task<Flashcard> GetFlashcardsAsync(int wordCount, bool useScalingMode, WordSource.Difficulties difficulty);
         (int score, List<string> correctWords, List<string> incorrectWords) CalculateScore(List<string> userCorrect, List<string> userIncorrect, Guid flashcardId);
     }
     
@@ -23,7 +23,7 @@ namespace SwipeWords.Services
             _logger = logger;
         }
 
-        public async Task<Flashcard> GetFlashcardsAsync(int wordCount, bool useScalingMode, string difficulty)
+        public async Task<Flashcard> GetFlashcardsAsync(int wordCount, bool useScalingMode, WordSource.Difficulties difficulty)
         {
             var apiService = new ExternalApiService();
             var flashcard = new Flashcard();

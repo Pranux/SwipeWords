@@ -9,25 +9,25 @@ namespace SwipeWords.Services
         {
             _wordSources = new List<WordSource>
             {
-                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/holbrook-missp.dat", Difficulty = "Combined", TotalLines = 42267 },
-                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/aspell.dat", Difficulty = "Easy", TotalLines = 981 },
-                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/missp.dat", Difficulty = "Medium", TotalLines = 3000 },
-                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/wikipedia.dat", Difficulty = "Difficult", TotalLines = 4377 }
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/holbrook-missp.dat", Difficulty = WordSource.Difficulties.Combined, TotalLines = 42267 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/aspell.dat", Difficulty = WordSource.Difficulties.Easy, TotalLines = 981 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/missp.dat", Difficulty = WordSource.Difficulties.Medium, TotalLines = 3000 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/wikipedia.dat", Difficulty = WordSource.Difficulties.Hard, TotalLines = 4377 }
             };
             _usedWords = new HashSet<string>();
         }
 
-        public async Task<List<string>> GetCorrectWordsAsync(int count, bool useScalingMode = false, string difficulty = null)
+        public async Task<List<string>> GetCorrectWordsAsync(int count, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             return await GetWordsAsync(count, true, useScalingMode, difficulty);
         }
 
-        public async Task<List<string>> GetIncorrectWordsAsync(int count, bool useScalingMode = false, string difficulty = null)
+        public async Task<List<string>> GetIncorrectWordsAsync(int count, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             return await GetWordsAsync(count, false, useScalingMode, difficulty);
         }
 
-        private async Task<List<string>> GetWordsAsync(int count, bool correct, bool useScalingMode, string difficulty)
+        private async Task<List<string>> GetWordsAsync(int count, bool correct, bool useScalingMode, WordSource.Difficulties difficulty)
         {
             if (useScalingMode)
             {
@@ -35,16 +35,16 @@ namespace SwipeWords.Services
                 int mediumCount = count / 3;
                 int difficultCount = count - easyCount - mediumCount;
 
-                var easyWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == "Easy"), easyCount, correct);
-                var mediumWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == "Medium"), mediumCount, correct);
-                var difficultWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == "Difficult"), difficultCount, correct);
+                var easyWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == WordSource.Difficulties.Easy), easyCount, correct);
+                var mediumWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == WordSource.Difficulties.Medium), mediumCount, correct);
+                var difficultWords = await FetchWordsFromSource(_wordSources.First(source => source.Difficulty == WordSource.Difficulties.Hard), difficultCount, correct);
 
                 return easyWords.Concat(mediumWords).Concat(difficultWords).ToList();
             }
             else
             {
                 var wordSource = _wordSources.FirstOrDefault(source => source.Difficulty == difficulty) ??
-                                 _wordSources.First(source => source.Difficulty == "Difficult");
+                                 _wordSources.First(source => source.Difficulty == WordSource.Difficulties.Hard);
                 return await FetchWordsFromSource(wordSource, count, correct);
             }
         }
@@ -113,11 +113,20 @@ namespace SwipeWords.Services
             _usedWords.Clear();
         }
     }
-
+    
     public class WordSource
     {
         public string Url { get; set; }
-        public string Difficulty { get; set; }
+        
+        public enum Difficulties
+        {
+            Easy,
+            Medium,
+            Hard,
+            Combined
+        }
+        
+        public Difficulties Difficulty{ get; set; }
         public int TotalLines { get; set; }
     }
 }

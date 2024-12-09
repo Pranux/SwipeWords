@@ -11,7 +11,7 @@ namespace SwipeWords.Models
 
         public Guid Id { get; } = Guid.NewGuid();
 
-        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
+        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             var random = new Random();
             var numCorrectWords = random.Next((int)(wordCount * 0.25), (int)(wordCount * 0.75));

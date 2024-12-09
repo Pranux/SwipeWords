@@ -25,28 +25,26 @@ const ResultsPage = () => {
 
         const calculateScore = async () => {
             try {
-                const userCorrect = results.filter(result => result.correct).map(result => result.word).join(',');
-                const userIncorrect = results.filter(result => !result.correct).map(result => result.word).join(',');
+                const userCorrect = results.filter(result => result.correct).map(result => result.word);
+                const userIncorrect = results.filter(result => !result.correct).map(result => result.word);
 
-                console.log('Request Payload:', {
-                    id: flashcardId,
-                    userCorrect,
-                    userIncorrect,
-                });
+                const payload = {
+                    UserCorrect: userCorrect,
+                    UserIncorrect: userIncorrect,
+                    FlashcardId: flashcardId,
+                };
 
                 const response = await fetch('https://localhost:44399/api/Flashcards/CalculateScore', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        flashcardId,
-                        userCorrect,
-                        userIncorrect,
-                    }),
+                    body: JSON.stringify(payload),
                 });
 
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Failed to calculate score:', errorText);
                     throw new Error(`Network response was not ok: ${response.statusText}`);
                 }
 
@@ -75,7 +73,7 @@ const ResultsPage = () => {
                 console.error('Error calculating score:', error);
             }
         };
-
+        
         calculateScore();
     }, [results, flashcardId]);
 
