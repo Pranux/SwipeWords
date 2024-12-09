@@ -11,10 +11,9 @@ const SignupPage = () => {
     const [usernameError, setUsernameError] = useState<string>('');
     const [passwordError, setPasswordError] = useState<string>('');
     const [repeatPasswordError, setRepeatPasswordError] = useState<string>('');
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const checkLogin = (username: string, password: string, repeatPassword: string) => {
+    const checkLogin = (password: string, repeatPassword: string) => {
         return password === repeatPassword;
     }
 
@@ -39,7 +38,7 @@ const SignupPage = () => {
         }
     }
 
-    const handleAnswer = async (isLoggedIn: boolean) => {
+    const handleAnswer = async () => {
         setPasswordError('');
         setUsernameError('');
         setRepeatPasswordError('');
@@ -66,7 +65,7 @@ const SignupPage = () => {
             return;
         }
 
-        if (checkLogin(username, password, repeatPassword) === true) {
+        if (checkLogin(password, repeatPassword)) {
             try {
                 const response = await fetch('https://localhost:44399/api/User/Register', {
                     method: 'POST',
@@ -74,7 +73,7 @@ const SignupPage = () => {
                         'Content-Type': 'application/json',
                         'accept': '*/*'
                     },
-                    body: JSON.stringify({ name: username, password: password })
+                    body: JSON.stringify({name: username, password: password})
                 });
 
                 if (!response.ok) {
@@ -88,8 +87,7 @@ const SignupPage = () => {
                 const decodedToken: any = jwtDecode(token);
                 const usernameFromToken = decodedToken.name;
 
-                setLoggedIn(isLoggedIn);
-                navigate('/', { state: { username: usernameFromToken } });
+                navigate('/', {state: {username: usernameFromToken}});
             } catch (error) {
                 console.error('There was a problem with the registration request:', error);
             }
@@ -126,10 +124,15 @@ const SignupPage = () => {
                         className="input-box"
                     />
                     <label className="errorLabel">{repeatPasswordError}</label>
-                    <button className="signup-button" onClick={() => handleAnswer(true)}>
+                    <button className="signup-button" onClick={() => handleAnswer()}>
                         Sign Up
                     </button>
                 </div>
+            </div>
+            <div className="footer-text">
+                <p>
+                    Already have an account? <a href="/login">Log in</a>
+                </p>
             </div>
         </div>
     );
