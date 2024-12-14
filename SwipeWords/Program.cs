@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SwipeWord.Extensions;
 using SwipeWords.Data;
+using SwipeWords.FlashcardDrop.Services;
 using SwipeWords.MemoryRecall.Data;
 using SwipeWords.MemoryRecall.Services;
 using SwipeWords.Models;
@@ -28,6 +29,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<TextProcessingService>();
 builder.Services.AddScoped<MemoryRecallService>();
 builder.Services.AddHttpClient<BookRetrievalService>();
+builder.Services.AddScoped<FlashcardDropService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

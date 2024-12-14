@@ -6,8 +6,12 @@ import LeaderboardPage from './LeaderboardPage';
 import ResultsPage from "./ResultsPage";
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
+import FlashcardDrop from './FlashcardDrop';
+import FlashcardDropResults from './FlashcardDropResultPage';
+import FlashcardDropHome from './FlashcardDropHomePage';
 import './App.css';
 import  './ResultsPage';
+
 
 const router = createBrowserRouter([
     {
@@ -33,6 +37,18 @@ const router = createBrowserRouter([
     {
         path: '/signup',
         element: <SignupPage />,
+    },
+    {
+        path: 'flashcard-drop-start',
+        element: <FlashcardDrop />
+    },
+    {
+        path: 'flashcard-drop-home',
+        element: <FlashcardDropHome />
+    },
+    {
+        path: 'flashcard-drop-results',
+        element: <FlashcardDropResults />
     }
 ]);
 
