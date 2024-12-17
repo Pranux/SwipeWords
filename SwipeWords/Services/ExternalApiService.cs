@@ -1,12 +1,33 @@
 namespace SwipeWords.Services
 {
-    public class ExternalApiService
+    
+    public interface IExternalApiService
+    {
+        Task<List<string>> GetCorrectWordsAsync(int count, bool someFlag, WordSource.Difficulties difficulty);
+        Task<List<string>> GetIncorrectWordsAsync(int count, bool someFlag, WordSource.Difficulties difficulty);
+    }
+    
+    public class ExternalApiService : IExternalApiService
     {
         private readonly List<WordSource> _wordSources;
         private readonly HashSet<string> _usedWords;
+        private readonly HttpClient _httpClient;
 
         public ExternalApiService()
         {
+            _wordSources = new List<WordSource>
+            {
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/holbrook-missp.dat", Difficulty = WordSource.Difficulties.Combined, TotalLines = 42267 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/aspell.dat", Difficulty = WordSource.Difficulties.Easy, TotalLines = 981 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/missp.dat", Difficulty = WordSource.Difficulties.Medium, TotalLines = 3000 },
+                new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/wikipedia.dat", Difficulty = WordSource.Difficulties.Hard, TotalLines = 4377 }
+            };
+            _usedWords = new HashSet<string>();
+        }
+        
+        public ExternalApiService(HttpClient httpClient)
+        {
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _wordSources = new List<WordSource>
             {
                 new WordSource { Url = "https://www.dcs.bbk.ac.uk/~roger/holbrook-missp.dat", Difficulty = WordSource.Difficulties.Combined, TotalLines = 42267 },

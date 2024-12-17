@@ -26,9 +26,9 @@ builder.Services.AddScoped<IFlashcardGameDatabaseContext, FlashcardGameDatabaseC
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddMemoryCache(); 
-builder.Services.AddScoped<TextProcessingService>();
-builder.Services.AddScoped<MemoryRecallService>();
-builder.Services.AddHttpClient<BookRetrievalService>();
+builder.Services.AddScoped<ITextProcessingService, TextProcessingService>();
+builder.Services.AddScoped<IMemoryRecallService, MemoryRecallService>();
+builder.Services.AddHttpClient<IBookRetrievalService, BookRetrievalService>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
