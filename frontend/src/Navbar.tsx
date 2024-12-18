@@ -14,6 +14,8 @@ function Navbar() {
         <nav className="navbar">
             <div className="logo"><a href="/">Flashcard App</a></div>
             <ul>
+                <li><a href="/memory-recall-home">Memory Recall</a></li>
+                <li><a href="/flashcard-drop-home">Flashcard Drop</a></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/leaderboard">Leaderboard</a></li>
                 <li><a onClick={handleLogout} href="/">Logout</a>

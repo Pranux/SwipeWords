@@ -6,6 +6,15 @@ import LeaderboardPage from './LeaderboardPage';
 import ResultsPage from './ResultsPage';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
+import FlashcardDrop from './FlashcardDrop';
+import FlashcardDropResults from './FlashcardDropResultPage';
+import FlashcardDropHome from './FlashcardDropHomePage';
+import './App.css';
+import  './ResultsPage';
+import MemoryRecallHomePage from "./MemoryRecallHomePage";
+import MemoryRecallReadPage from "./MemoryRecallReadPage";
+import MemoryRecallPlacePage from "./MemoryRecallPlacePage";
+import MemoryRecallResultPage from "./MemoryRecallResultPage";
 import { jwtDecode } from "jwt-decode";
 import './App.css';
 
@@ -76,6 +85,34 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <SignupPage />,
     },
+    {
+        path: 'flashcard-drop-start',
+        element: <FlashcardDrop />
+    },
+    {
+        path: 'flashcard-drop-home',
+        element: <FlashcardDropHome />
+    },
+    {
+        path: 'flashcard-drop-results',
+        element: <FlashcardDropResults />
+    },
+    {
+        path: '/memory-recall-home',
+        element: <MemoryRecallHomePage />
+    },
+    {
+        path: '/memory-recall-read',
+        element: <MemoryRecallReadPage />
+    },
+    {
+        path: "/memory-recall-place",
+        element: <MemoryRecallPlacePage />
+    },
+    {
+        path: "/memory-recall-result",
+        element: <MemoryRecallResultPage />
+    }
 ]);
 
 export default function App() {

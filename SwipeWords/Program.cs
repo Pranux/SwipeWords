@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SwipeWord.Extensions;
 using SwipeWords.Data;
+using SwipeWords.FlashcardDrop.Services;
 using SwipeWords.MemoryRecall.Data;
 using SwipeWords.MemoryRecall.Services;
 using SwipeWords.Models;
@@ -26,9 +27,11 @@ builder.Services.AddScoped<IFlashcardGameDatabaseContext, FlashcardGameDatabaseC
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddMemoryCache(); 
-builder.Services.AddScoped<ITextProcessingService, TextProcessingService>();
-builder.Services.AddScoped<IMemoryRecallService, MemoryRecallService>();
-builder.Services.AddHttpClient<IBookRetrievalService, BookRetrievalService>();
+builder.Services.AddScoped<TextProcessingService>();
+builder.Services.AddScoped<MemoryRecallService>();
+builder.Services.AddHttpClient<BookRetrievalService>();
+builder.Services.AddScoped<FlashcardDropService>();
+
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
