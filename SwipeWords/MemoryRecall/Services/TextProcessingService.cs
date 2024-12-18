@@ -1,5 +1,13 @@
 namespace SwipeWords.MemoryRecall.Services
 {
+
+    public interface ITextProcessingService
+    {
+        List<int> GeneratePlaceholderPositions(string text, double placeholderPercentage);
+        string GenerateTextWithPlaceholders(string text, List<int> placeholderPositions);
+        
+
+    }
     public class GenericProcessor<T> where T : class, IComparable<T>, new()
     {
         private readonly List<T> _items = [];
@@ -15,7 +23,7 @@ namespace SwipeWords.MemoryRecall.Services
         }
     }
 
-    public class TextProcessingService
+    public class TextProcessingService : ITextProcessingService
     {
         public List<int> GeneratePlaceholderPositions(string text, double placeholderPercentage)
         {

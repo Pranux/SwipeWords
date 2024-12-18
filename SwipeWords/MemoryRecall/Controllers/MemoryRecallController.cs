@@ -7,9 +7,9 @@ namespace SwipeWords.MemoryRecall.Controllers;
 [Route("api/memory-recall")]
 public class MemoryRecallController : ControllerBase
 {
-    private readonly MemoryRecallService _memoryRecallService;
+    private readonly IMemoryRecallService _memoryRecallService;
 
-    public MemoryRecallController(MemoryRecallService memoryRecallService)
+    public MemoryRecallController(IMemoryRecallService memoryRecallService)
     {
         _memoryRecallService = memoryRecallService;
     }

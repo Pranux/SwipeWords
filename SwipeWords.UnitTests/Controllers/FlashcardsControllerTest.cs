@@ -35,10 +35,10 @@ public class FlashcardsControllerTests
         flashcard.SetWords(correctWords, incorrectWords);
 
         _mockFlashcardService
-            .Setup(service => service.GetFlashcardsAsync(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
+            .Setup(service => service.GetFlashcardsAsync(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<WordSource.Difficulties>()))
             .ReturnsAsync(flashcard);
         
-        var result = await _controller.GetFlashcards(5, false, "Difficult");
+        var result = await _controller.GetFlashcards(5, false, WordSource.Difficulties.Hard);
         
         var okResult = result as OkObjectResult;
         Assert.That(okResult, Is.Not.Null);
@@ -58,10 +58,10 @@ public class FlashcardsControllerTests
     public async Task GetFlashcards_ReturnsInternalServerError_WhenExceptionOccurs()
     {
         _mockFlashcardService
-            .Setup(service => service.GetFlashcardsAsync(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
+            .Setup(service => service.GetFlashcardsAsync(It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<WordSource.Difficulties>()))
             .ThrowsAsync(new Exception("Test exception"));
         
-        var result = await _controller.GetFlashcards(5, false, "Difficult");
+        var result = await _controller.GetFlashcards(5, false, WordSource.Difficulties.Hard);
         
         Assert.That(result, Is.TypeOf<ObjectResult>());
         var objectResult = result as ObjectResult;

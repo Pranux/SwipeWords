@@ -20,7 +20,7 @@ namespace SwipeWords.Controllers
         }
 
         [HttpGet("GetFlashcards")]
-        public async Task<IActionResult> GetFlashcards(int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
+        public async Task<IActionResult> GetFlashcards(int wordCount = 5, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             try
             {

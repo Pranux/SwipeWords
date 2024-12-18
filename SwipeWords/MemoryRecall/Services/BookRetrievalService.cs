@@ -3,7 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace SwipeWords.MemoryRecall.Services;
 
-public class BookRetrievalService
+public interface IBookRetrievalService
+{
+    Task<string> FetchRandomPassageAsync(int wordCountTarget, int maxRetries = 5);
+}
+
+public class BookRetrievalService : IBookRetrievalService
 {
     private readonly HttpClient _httpClient;
     private static readonly List<int> RandomBookIds =

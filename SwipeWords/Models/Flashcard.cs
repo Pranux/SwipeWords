@@ -7,11 +7,14 @@ namespace SwipeWords.Models
 {
     public class Flashcard : IEnumerable<string>
     {
-        private Words _words;
+        private Words _words = new Words(new List<string>(), new List<string>()); // Initialize to prevent null issues
 
         public Guid Id { get; } = Guid.NewGuid();
 
-        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
+        public List<string> CorrectWords => _words.CorrectWords;
+        public List<string> IncorrectWords => _words.IncorrectWords;
+        
+        public async Task InitializeAsync(FlashcardGameDatabaseContext databaseContext, ExternalApiService apiService, int wordCount = 5, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             var random = new Random();
             var numCorrectWords = random.Next((int)(wordCount * 0.25), (int)(wordCount * 0.75));
