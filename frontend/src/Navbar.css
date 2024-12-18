@@ -29,10 +29,10 @@
     color: #fff;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textclip 4s linear infinite; /* Longer animation time to make it smoother */
+    animation: textclip 4s linear infinite;
     display: inline-block;
-    font-size: 1.5rem; /* Adjust this based on your UI */
-    font-weight: bold; /* Keep the bold effect */
+    font-size: 1.5rem;
+    font-weight: bold;
     padding: 10px 20px;
     text-decoration: none;
 }

@@ -11,6 +11,10 @@ import FlashcardDropResults from './FlashcardDropResultPage';
 import FlashcardDropHome from './FlashcardDropHomePage';
 import './App.css';
 import  './ResultsPage';
+import MemoryRecallHomePage from "./MemoryRecallHomePage";
+import MemoryRecallReadPage from "./MemoryRecallReadPage";
+import MemoryRecallPlacePage from "./MemoryRecallPlacePage";
+import MemoryRecallResultPage from "./MemoryRecallResultPage";
 
 
 const router = createBrowserRouter([
@@ -49,6 +53,22 @@ const router = createBrowserRouter([
     {
         path: 'flashcard-drop-results',
         element: <FlashcardDropResults />
+    },
+    {
+        path: '/memory-recall-home',
+        element: <MemoryRecallHomePage />
+    },
+    {
+        path: '/memory-recall-read',
+        element: <MemoryRecallReadPage />
+    },
+    {
+        path: "/memory-recall-place",
+        element: <MemoryRecallPlacePage />
+    },
+    {
+        path: "/memory-recall-result",
+        element: <MemoryRecallResultPage />
     }
 ]);
 
