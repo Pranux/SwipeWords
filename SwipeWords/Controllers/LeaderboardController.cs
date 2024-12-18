@@ -11,10 +11,10 @@ namespace SwipeWords.Controllers
     [Route("api/[controller]")]
     public class LeaderboardController : ControllerBase
     {
-        private readonly LeaderboardService _leaderboardService;
+        private readonly ILeaderboardService _leaderboardService;
         private readonly ILogger<LeaderboardController> _logger;
 
-        public LeaderboardController(LeaderboardService leaderboardService, ILogger<LeaderboardController> logger)
+        public LeaderboardController(ILeaderboardService leaderboardService, ILogger<LeaderboardController> logger)
         {
             _leaderboardService = leaderboardService;
             _logger = logger;

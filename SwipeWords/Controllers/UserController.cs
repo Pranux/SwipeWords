@@ -13,11 +13,11 @@ namespace SwipeWords.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _userService;
-        private readonly TokenProvider _tokenProvider;
+        private readonly IUserService _userService;
+        private readonly ITokenProvider _tokenProvider;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(UserService userService, TokenProvider tokenProvider, ILogger<UserController> logger)
+        public UserController(IUserService userService, ITokenProvider tokenProvider, ILogger<UserController> logger)
         {
             _userService = userService;
             _tokenProvider = tokenProvider;

@@ -20,16 +20,18 @@ var memoryRecallConnectionString = builder.Configuration.GetConnectionString("Me
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenWithAuth();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<TokenProvider>();
+builder.Services.AddSingleton<ITokenProvider, TokenProvider>();
 builder.Services.AddAuthorization();
-builder.Services.AddScoped<FlashcardService>();
-builder.Services.AddScoped<LeaderboardService>();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IFlashcardService, FlashcardService>();
+builder.Services.AddScoped<IFlashcardGameDatabaseContext, FlashcardGameDatabaseContext>();
+builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddMemoryCache(); 
 builder.Services.AddScoped<TextProcessingService>();
 builder.Services.AddScoped<MemoryRecallService>();
 builder.Services.AddHttpClient<BookRetrievalService>();
 builder.Services.AddScoped<FlashcardDropService>();
+
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

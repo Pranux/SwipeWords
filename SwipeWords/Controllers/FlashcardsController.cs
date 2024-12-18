@@ -10,18 +10,17 @@ namespace SwipeWords.Controllers
     [Route("api/[controller]")]
     public class FlashcardsController : ControllerBase
     {
-        private readonly FlashcardService _flashcardService;
+        private readonly IFlashcardService _flashcardService;
         private readonly ILogger<FlashcardsController> _logger;
 
-        public FlashcardsController(FlashcardService flashcardService, ILogger<FlashcardsController> logger)
+        public FlashcardsController(IFlashcardService flashcardService, ILogger<FlashcardsController> logger)
         {
             _flashcardService = flashcardService;
             _logger = logger;
         }
 
-        // GET: api/Flashcards/GetFlashcards?wordCount=5
         [HttpGet("GetFlashcards")]
-        public async Task<IActionResult> GetFlashcards(int wordCount = 5, bool useScalingMode = false, string difficulty = "Difficult")
+        public async Task<IActionResult> GetFlashcards(int wordCount = 5, bool useScalingMode = false, WordSource.Difficulties difficulty = WordSource.Difficulties.Hard)
         {
             try
             {
@@ -36,7 +35,6 @@ namespace SwipeWords.Controllers
             }
         }
 
-        // POST: api/Flashcards/CalculateScore
         [HttpPost("CalculateScore")]
         public IActionResult CalculateScore([FromBody] ScoreRequest request)
         {

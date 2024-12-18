@@ -1,9 +1,9 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import HomePage from './HomePage';
 import GamePage from './GamePage';
 import LeaderboardPage from './LeaderboardPage';
-import ResultsPage from "./ResultsPage";
+import ResultsPage from './ResultsPage';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import FlashcardDrop from './FlashcardDrop';
@@ -15,24 +15,67 @@ import MemoryRecallHomePage from "./MemoryRecallHomePage";
 import MemoryRecallReadPage from "./MemoryRecallReadPage";
 import MemoryRecallPlacePage from "./MemoryRecallPlacePage";
 import MemoryRecallResultPage from "./MemoryRecallResultPage";
+import { jwtDecode } from "jwt-decode";
+import './App.css';
 
+const AuthGuard: React.FC<{ children: JSX.Element }> = ({ children }) => {
+    const token = localStorage.getItem('jwtToken');
 
+    if (!token) {
+        console.warn('No token found. Redirecting to login.');
+        return <Navigate to="/login" />;
+    }
+
+    try {
+        const decoded: any = jwtDecode(token);
+        const isTokenExpired = decoded.exp * 1000 < Date.now();
+        if (isTokenExpired) {
+            console.warn('Token expired. Redirecting to login.');
+            localStorage.removeItem('jwtToken'); // Clear invalid token
+            return <Navigate to="/login" />;
+        }
+    } catch (error) {
+        console.error('Invalid token. Redirecting to login:', error);
+        localStorage.removeItem('jwtToken'); // Clear invalid token
+        return <Navigate to="/login" />;
+    }
+    
+    return children;
+};
+
+// Router Configuration
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <HomePage />,
+        element: (
+            <AuthGuard>
+                <HomePage />
+            </AuthGuard>
+        ),
     },
     {
         path: '/start',
-        element: <GamePage />,
+        element: (
+            <AuthGuard>
+                <GamePage />
+            </AuthGuard>
+        ),
     },
     {
         path: '/leaderboard',
-        element: <LeaderboardPage />,
+        element: (
+            <AuthGuard>
+                <LeaderboardPage />
+            </AuthGuard>
+        ),
     },
     {
         path: '/results',
-        element: <ResultsPage />,
+        element: (
+            <AuthGuard>
+                <ResultsPage />
+            </AuthGuard>
+        ),
     },
     {
         path: '/login',

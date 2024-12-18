@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SwipeWords.MemoryRecall.Data;
 
-public class MemoryRecallDatabaseContext : DbContext
+public interface IMemoryRecallDatabaseContext;
+
+public class MemoryRecallDatabaseContext : DbContext, IMemoryRecallDatabaseContext
 {
     public MemoryRecallDatabaseContext(DbContextOptions<MemoryRecallDatabaseContext> options)
         : base(options)

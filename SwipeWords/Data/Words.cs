@@ -7,7 +7,7 @@ public struct Words
 
     public Words(List<string> correctWords, List<string> incorrectWords)
     {
-        CorrectWords = correctWords;
-        IncorrectWords = incorrectWords;
+        CorrectWords = correctWords ?? new List<string>();
+        IncorrectWords = incorrectWords ?? new List<string>();
     }
 }
